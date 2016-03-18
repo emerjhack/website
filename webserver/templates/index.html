@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content_top %}
+<div class="container-fluid" id="section-title">
+  <div class="row">
+    <div class="text-center title-img"><img src="{% static "images/title_hl.svg" %}" /></div>
+  </div>
+  <div class="row">
+    <h3>University of Waterloo</h3>
+  </div>
+  <div class="row">
+    <h3>December 25 - 27</h3>
+  </div>
+  <div class="row">
+    <h3>2015</h3>
+  </div>
+
+  <div id="title-plant"></div>
+</div>
+{% endblock content_top %}
+{% block content %}
+<div class="container-fluid" id="section-about">
+  <img id="wire-1" src="{% static "images/wire-1.svg" %}"></img>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+      <h2>What is EMERJ?</h2>
+      <p>Emerj is a dual-component initiative that aims to diversify the developer ecosystem, and raise collective awareness with regards to cutting-edge consumer technologies.</p>
+
+  <p>The first component of Emerj is the loan program, EmerjLoan, and the second is the hack-a-thon, EmerjHack. </p>
+
+  <p>With EmerjLoan, we allow you to loan from us, free of cost, a variety of cutting edge consumer technologies for up to three months. All you have to do is apply – and if you get accepted, come pick up the package at a predetermined location, take it home, work at whatever pace you’re comfortable with; and when your period of loan ends, you can either extend your period of loan or return your package at a predetermined location. </p>
+
+  <p>At EmerjHack, you get to showcase what you’ve been working on for the past three months on a stage, then get to hacking something new with the technologies you’ve been working on – or a new technology, if you’re up to the challenge. The hack-a-thon runs for two and a half days, and we provide catering, goodies, mentors, and networking opportunities. </p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h4>Who can participate?</h4>
+      <p>The hack-a-thon, EmerjHack, is available to all, but the loan program, EmerjLoan, is only available to students attending the Universities of Waterloo and Laurier.</p>
+
+  <p>We plan to expand upon the availability of our loan program in the future, depending on the outcome and feedback of our first iteration. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What if I’m new to this? </h4>
+      <p>Then Emerj is perfect for you, seeing as it’s all about giving you ample time and resources to try out new things, so apply!</p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What if I break the hardware?</h4>
+      <p>No sweat, just return it to us, and we’ll loan you a new one – but if you break things more than once, you’re going on a list, which we’ll be considering when going over future applications. </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h4>What if I don’t return the hardware?</h4>
+      <p>You’re going on a list, which we’ll be considering when going over future applications, and depending on the circumstances, publically shamed. JK.</p>
+
+  <p>But no, you’re going on a list. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What is the plebeian-patrician system? </h4>
+      <p>With EmerjLoan, there are two tiers of hardware, plebeian and patrician. Anyone can loan out plebeian hardware in the beginning, but patrician hardware is only available to those who have loaned out and returned plebeian hardware in good condition. </p>
+      <p>Exceptions are made for those with exceptional applications, but don’t count on it. </p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" id="section-schedule">
+  <h1>EmerjHack Schedule</h1>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h4>Friday</h4>
+        <p>6:00PM - Registration
+            <br> 6:30PM - Dinner
+            <br> 9:00PM - Opening Ceremonies
+            <br> 9:55PM - Sponsor Pitches
+            <br> 10:45PM - Hackathon Rules and Regulation Briefing
+            <br> 11:00PM - Snack</p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>Saturday</h4>
+        <p>6:00PM - Registration
+            <br> 6:30PM - Dinner
+            <br> 9:00PM - Opening Ceremonies
+            <br> 9:55PM - Sponsor Pitches
+            <br> 10:45PM - Hackathon Rules and Regulation Briefing
+            <br> 11:00PM - Snack</p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>Sunday</h4>
+        <p>6:00PM - Registration
+            <br> 6:30PM - Dinner
+            <br> 9:00PM - Opening Ceremonies
+            <br> 9:55PM - Sponsor Pitches
+            <br> 10:45PM - Hackathon Rules and Regulation Briefing
+            <br> 11:00PM - Snack</p>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>6:00pm</td>
+          <td>Time block 1-1</td>
+        </tr>
+        <tr>
+          <td>6:00pm</td>
+          <td>Time block 1-1</td>
+        </tr>
+        <tr>
+          <td>6:00pm</td>
+          <td>Time block 1-1</td>
+        </tr>
+        <tr>
+          <td>6:00pm</td>
+          <td>Time block 1-1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="container-fluid" id="section-schedule-loan">
+  <h1>EmerjLoan Schedule</h1>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <p>Variable, we announce it through e-mails and social media.</p>
+    </div>
+  </div>
+</div>
+<!-- <div class="container-fluid" id="section-faq">
+  <h1>FAQ</h1>
+</div> -->
+<div class="container-fluid" id="section-hardware">
+  <h1>Hardware</h1>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h2>Augmented Reality  —</h2>
+      <div class="row-flex-cont">
+        <div class="p-img"><img src="{% static "images/1/project-tango-logo_2x.png" %}" /></div>
+        <div class="p-img"><img src="{% static "images/1/META-Logo-home.png" %}" /></div>
+        <div class="p-img"><img src="{% static "images/1/Oculus_VR_Logo_Wide.png" %}" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h2>Wearables  —</h2>
+      <div class="row-flex-cont">
+        <div class="p-img"><img src="{% static "images/1/myo_logo.png" %}" style="width: 300px;"/></div>
+        <div class="p-img"><img src="{% static "images/1/pebble_logo2.png" %}" style="width: 350px;" /></div>
+        <div class="p-img"><img src="{% static "images/1/nod-ring.png" %}" style="width: 250px;" /></div>
+        <div class="p-img"><img src="{% static "images/1/Nymi_Logo.png" %}" style="width: 300px;" /></div>
+        <div class="p-img"><img src="{% static "images/1/muse_logo_noTag1.png" %}" style="width: 350px;" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h2>Drones  —</h2>
+      <div class="row-flex-cont">
+        <div class="p-img"><img src="{% static "images/1/parrot-1.png" %}" style="width: 300px;"/></div>
+        <div class="p-img"><img src="{% static "images/1/phantom-3.png" %}" style="width: 300px;" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h2>Sensors  —</h2>
+      <div class="row-flex-cont">
+        <div class="p-img"><img src="{% static "images/1/mbientlab.png" %}" /></div>
+        <div class="p-img"><img src="{% static "images/1/particle-horizontal-dark-093e6b1e.png" %}" /></div>
+        <div class="p-img"><img src="{% static "images/1/estimote-logo.c0e188fa.png" %}" style="width: 200px;" /></div>
+        <div class="p-img"><img src="{% static "images/1/leap-motion-logo.png" %}" style="width: 250px;" /></div>
+        <div class="p-img"><img src="{% static "images/1/765px-Kinect_logo.svg.png" %}" style="width: 300px;" /></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h2>And more..</h2>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="container-fluid" id="section-press">
+  <h1>Press Coverage</h1>
+  <h4>See what others are saying</h4>
+</div> -->
+<!-- <div class="container-fluid" id="section-gallery">
+  <h1>Gallery</h1>
+</div> -->
+<!-- <div class="container-fluid" id="section-faq-2">
+  <h1>FAQ</h1>
+</div> -->
+<!-- <div class="container-fluid" id="section-aboutus">
+  <h1>About Us</h1>
+</div> -->
+<div class="container-fluid" id="section-sponsors">
+  <h1>Our Sponsors</h1>
+
+  <div class="text-center">
+    <p>You!</p>
+  </div>
+</div>
+{% endblock content %}

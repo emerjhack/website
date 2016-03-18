@@ -1,0 +1,7 @@
+{% load staticfiles %}
+{% if error %}Error: {{ error }}{% endif %}
+<form action="/login/" method="post">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Submit" />
+</form>
