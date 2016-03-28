@@ -19,6 +19,7 @@ def index(request):
 def register(request):
     error = []
     if request.method == 'POST':
+        print request.POST
         form = NameForm(request.POST)
         if form.is_valid():
             error = []
@@ -60,7 +61,7 @@ def activation(request, token):
         user = account[0].user
         user.is_active = True
         user.save()
-    return render(request, 'activation.html', {})
+    return render(request, 'index.html', {})
 
 def login(request):
     error = []
@@ -92,5 +93,5 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
 
-def me(request):
-    return render(request, 'me.html', {})
+def account(request):
+    return render(request, 'account.html', {})

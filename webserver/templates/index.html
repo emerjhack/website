@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
-{% block content_top %}
+{% block nav %}
 <div class="container-fluid" id="section-title">
   <div class="row">
     <div class="text-center title-img"><img src="{% static "images/title_hl.svg" %}" /></div>
@@ -18,85 +18,179 @@
 
   <div id="title-plant"></div>
 </div>
-{% endblock content_top %}
+<div id="sticky-nav-placeholder"></div>
+<nav class="navbar navbar-default" id="section-nav">
+  <div class="container-fluid" id="nav-container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" id="nav-title-link" href="/"><img id="nav-title" src="{% static "images/nav-title.svg" %}" /><div id="nav-title-text"></div></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#section-about" id="nav-link-about">About</a></li>
+        <li><a href="#section-schedule" id="nav-link-sched">Schedule</a></li>
+        <li><a href="#section-contact" id="nav-link-contact">Contact</a></li>
+        <li id="nav-link-reg"><a href="/register">Register</a></li>
+        <li id="nav-link-login"><a href="/login">Login</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+{% endblock nav %}
+
 {% block content %}
 <div class="container-fluid" id="section-about">
-  <img id="wire-1" src="{% static "images/wire-1.svg" %}"></img>
+  <div id="nav-wp-element"></div>
+	<img id="wire-1" src="{% static "images/wire-1.svg" %}"></img>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
       <h2>What is EMERJ?</h2>
       <p>Emerj is a dual-component initiative that aims to diversify the developer ecosystem, and raise collective awareness with regards to cutting-edge consumer technologies.</p>
 
-  <p>The first component of Emerj is the loan program, EmerjLoan, and the second is the hack-a-thon, EmerjHack. </p>
+  		<p>The first component of Emerj is the loan program, EmerjLoan, and the second is the hack-a-thon, EmerjHack. </p>
 
-  <p>With EmerjLoan, we allow you to loan from us, free of cost, a variety of cutting edge consumer technologies for up to three months. All you have to do is apply – and if you get accepted, come pick up the package at a predetermined location, take it home, work at whatever pace you’re comfortable with; and when your period of loan ends, you can either extend your period of loan or return your package at a predetermined location. </p>
+  		<p>With EmerjLoan, we allow you to loan from us, free of cost, a variety of cutting edge consumer technologies for up to three months. All you have to do is apply – and if you get accepted, come pick up the package at a predetermined location, take it home, work at whatever pace you’re comfortable with; and when your period of loan ends, you can either extend your period of loan or return your package at a predetermined location. </p>
 
-  <p>At EmerjHack, you get to showcase what you’ve been working on for the past three months on a stage, then get to hacking something new with the technologies you’ve been working on – or a new technology, if you’re up to the challenge. The hack-a-thon runs for two and a half days, and we provide catering, goodies, mentors, and networking opportunities. </p>
+  		<p>At EmerjHack, you get to showcase what you’ve been working on for the past three months on a stage, then get to hacking something new with the technologies you’ve been working on – or a new technology, if you’re up to the challenge. The hackathon runs for two and a half days, and we provide catering, goodies, mentors, and networking opportunities. </p>
 
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-1">
+      <h4>How does it all come together?</h4>
+      <p>The first iteration of EmerjHack is where it begins, we loan out the hardware, and give you the option to go through some crash courses in form of workshops and talks and mentors. </p>
+      <p>At the end of EmerjHack, if one of the members of your team is a student at the University of Waterloo or Laurier, you’ll get to keep your hardware and participate in EmerjLoan, if not, you’ll have to return the hardware. </p>
+      <p>As we’ve said before, we’ll be awarding prizes throughout the period of loan to particularly innovative or plain cool hacks.</p>
+      <p>And near the end of the loan period, we’ll be collecting all the hardware at a designated location over the period of a few days, and store them in preparation for the next iteration. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-4 col-md-offset-0">
+      <h4>What if I have questions not answered here?</h4>
+      <p>Reach us at our <a href="#">Facebook</a>, <a href="#">Twitter</a>, or at <a href="mailto:reach@emerjhack.com">reach@emerjhack.com</a>.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h2 id="nav-title-wp-eh">EmerjHack</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+    	<h4>Who can participate?</h4>
+    	<p>EmerjHack is available to any and all undergraduate university students and a select number of exceptional and curious high school students. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+    	<h4>What if I’m new to this? </h4>
+    	<p>Then you’ll be just like everyone else who’s working with emergent technologies. We’ll have mentors and hour-long developer-led workshops to get you up to speed, and depending on your circumstances, you’ll be able to enter into EmerjLoan, which will give you and/or your team even more time to work with what you’ve got. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What is the maximum size of teams and can we collaborate with other teams?</h4>
+      <p>4 members each team, and no collaboration between teams is allowed, so pick your members wisely.  </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h4>What if I don't have a team?</h4>
+      <p>Solo-hacking is allowed, but keep in mind hardware priority goes to teams, so unless you’re an exceptional individual, chances are you won’t be getting in. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What if we want to loan multiple technologies?</h4>
+      <p>Sign up as normal, but check the additional hardware option, and describe your needs. We may or may not follow up depending on the capabilities and experience of your team relative to others. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+    	<h4>What if I break the hardware?</h4>
+    	<p>No sweat, just return it to us, and we’ll loan you a new one – but if you break things more than once, you’re going on a list, which we’ll be considering when going over future applications. </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+    	<h4>What if I don’t return the hardware?</h4>
+    	<p>You’re going on a list, which we’ll be considering when going over future applications.</p>
+      <h4>How do I get there?</h4>
+      <p>For students attending schools in Ontario, we’ll be providing buses from schools within driving distance of the University of Waterloo.</p>
+      <p>For others, we’ll reimburse a portion of your travel cost, budget allowing. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+    	<h4>What happens?</h4>
+    	<p>You come in, find your team, receive your assigned hardware, attend whatever workshops or talks you like, and go off and do your own thing. </p>
+    	<p>At the end of the event, if one of the members of your team is a student at the University of Waterloo or Laurier, you’ll get to keep your hardware and participate in EmerjLoan, if not, you’ll have to return the hardware. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What's the cost of attendance?</h4>
+      <p>Nothing! We want you to worry about making the best hack you can, so we’re covering your food, drink, and depending on our budget, we might even subsidize your transportation!</p>
+      <h4>What do I bring or prepare? </h4>
+      <p>Whatever you need to make your hardware hack, legal forms of identification or a student card, and maybe even a sleeping bag or some other stuff to help you sleep. </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h2 id="nav-title-wp-el">EmerjLoan</h2>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
       <h4>Who can participate?</h4>
-      <p>The hack-a-thon, EmerjHack, is available to all, but the loan program, EmerjLoan, is only available to students attending the Universities of Waterloo and Laurier.</p>
-
-  <p>We plan to expand upon the availability of our loan program in the future, depending on the outcome and feedback of our first iteration. </p>
+      <p>EmerjLoan is only available to teams consisting of at least one member attending the Universities of Waterloo and Laurier.</p>
+      <p>We plan to expand upon the availability of our loan program in the future, depending on the outcome and feedback of our first iteration.</p>
     </div>
     <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
       <h4>What if I’m new to this? </h4>
-      <p>Then Emerj is perfect for you, seeing as it’s all about giving you ample time and resources to try out new things, so apply!</p>
+      <p>Then EmerjLoan is perfect for you, seeing as it’s all about giving you ample time and resources to try out new things, so apply!</p>
     </div>
     <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What is the maximum size of teams and can we collaborate with other teams?</h4>
+      <p>4 members each team, and no collaboration between teams is allowed, so pick your members wisely.  </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
+      <h4>What if I don't have a team?</h4>
+      <p>Solo-hacking is allowed, but keep in mind hardware priority goes to teams, so unless you’re an exceptional individual, chances are you won’t be getting in. </p>
       <h4>What if I break the hardware?</h4>
       <p>No sweat, just return it to us, and we’ll loan you a new one – but if you break things more than once, you’re going on a list, which we’ll be considering when going over future applications. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What happens?</h4>
+      <p>You and/or your team gets a lot of time to do stuff with the hardware we give you, so you can work at whatever pace you’d like. </p>
+      <p>Over the course of the loan period, we’ll be checking in on your Emerj portfolios (explained further down in this FAQ), and recognize and award the best ones. </p>
+      <p>At the end of your period of loan, you’ll be called on to return your hardware. </p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What if we want to trade or loan hardware to other teams?</h4>
+      <p>You can! You trade or loan the hardware with other teams informally in our Facebook group or in other settings, but keep in mind, if we don’t get the original hardware back from you in good condition at the designated place and times, the responsibility is yours. </p>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
       <h4>What if I don’t return the hardware?</h4>
-      <p>You’re going on a list, which we’ll be considering when going over future applications, and depending on the circumstances, publically shamed. JK.</p>
-
-  <p>But no, you’re going on a list. </p>
+      <p>You’re going on a list, which we’ll be considering when going over future applications.</p>
+      <h4>What's the cost?</h4>
+      <p>None, that would defeat the purpose of this entire initiative. We’re here to make it easy for you to make the best hacks you can, by giving you ample time to mull over ideas and applications.</p>
     </div>
     <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
-      <h4>What is the plebeian-patrician system? </h4>
-      <p>With EmerjLoan, there are two tiers of hardware, plebeian and patrician. Anyone can loan out plebeian hardware in the beginning, but patrician hardware is only available to those who have loaned out and returned plebeian hardware in good condition. </p>
-      <p>Exceptions are made for those with exceptional applications, but don’t count on it. </p>
+      <h4>What is the plebeian-patrician system?</h4>
+      <p>With EmerjLoan, there are two tiers of hardware, plebeian and patrician. Anyone can loan out plebeian hardware in the beginning, but patrician hardware is only available to those who have loaned out and returned plebeian hardware in good condition.</p>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
+      <h4>What is the portfolio system?</h4>
+      <p>Members will have access to a portfolio on the Emerj website. </p>
+      <p>The portfolio is where you store progress reports and links to your github and demonstration videos, showcasing the capabilities and applications of your hack, which we’ll be referring to intermittently over the course of the loan period. </p>
+
     </div>
   </div>
 </div>
 <div class="container-fluid" id="section-schedule">
-  <h1>EmerjHack Schedule</h1>
+  <h1 id="nav-title-wp-sched1">EmerjHack Schedule</h1>
+
   <div class="row">
-    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-1">
-      <h4>Friday</h4>
-        <p>6:00PM - Registration
-            <br> 6:30PM - Dinner
-            <br> 9:00PM - Opening Ceremonies
-            <br> 9:55PM - Sponsor Pitches
-            <br> 10:45PM - Hackathon Rules and Regulation Briefing
-            <br> 11:00PM - Snack</p>
-    </div>
-    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
-      <h4>Saturday</h4>
-        <p>6:00PM - Registration
-            <br> 6:30PM - Dinner
-            <br> 9:00PM - Opening Ceremonies
-            <br> 9:55PM - Sponsor Pitches
-            <br> 10:45PM - Hackathon Rules and Regulation Briefing
-            <br> 11:00PM - Snack</p>
-    </div>
-    <div class="col-sm-10 col-sm-offset-1 col-md-3 col-md-offset-0">
-      <h4>Sunday</h4>
-        <p>6:00PM - Registration
-            <br> 6:30PM - Dinner
-            <br> 9:00PM - Opening Ceremonies
-            <br> 9:55PM - Sponsor Pitches
-            <br> 10:45PM - Hackathon Rules and Regulation Briefing
-            <br> 11:00PM - Snack</p>
-    </div>
-  </div>
-  <div class="row">
+    <h4>Friday</h4>
     <table class="table">
       <tbody>
         <tr>
@@ -104,37 +198,224 @@
           <td>Time block 1-1</td>
         </tr>
         <tr>
-          <td>6:00pm</td>
-          <td>Time block 1-1</td>
+          <td>6:30pm</td>
+          <td>Time block 1-2</td>
         </tr>
         <tr>
-          <td>6:00pm</td>
-          <td>Time block 1-1</td>
+          <td>7:00pm</td>
+          <td>Time block 1-3</td>
         </tr>
         <tr>
+          <td>7:30pm</td>
+          <td>Time block 1-4</td>
+        </tr>
+        <tr>
+          <td>8:00pm</td>
+          <td>Time block 1-5</td>
+        </tr>
+        <tr>
+          <td>8:30pm</td>
+          <td>Time block 1-6</td>
+        </tr>
+        <tr>
+          <td>9:00pm</td>
+          <td>Time block 1-7</td>
+        </tr>
+        <tr>
+          <td>9:30pm</td>
+          <td>Time block 1-8</td>
+        </tr>
+        <tr>
+          <td>10:00pm</td>
+          <td>Time block 1-9</td>
+        </tr>
+        <tr>
+          <td>10:30pm</td>
+          <td>Time block 1-10</td>
+        </tr>
+        <tr>
+          <td>11:00pm</td>
+          <td>Time block 1-11</td>
+        </tr>
+        <tr>
+          <td>11:30pm</td>
+          <td>Time block 1-12</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <h4>Saturday</h4>
+    <table class="table">
+      <tbody>
+        <tr>
           <td>6:00pm</td>
-          <td>Time block 1-1</td>
+          <td>Time block 2-1</td>
+        </tr>
+        <tr>
+          <td>6:30pm</td>
+          <td>Time block 2-2</td>
+        </tr>
+        <tr>
+          <td>7:00pm</td>
+          <td>Time block 2-3</td>
+        </tr>
+        <tr>
+          <td>7:30pm</td>
+          <td>Time block 2-4</td>
+        </tr>
+        <tr>
+          <td>8:00pm</td>
+          <td>Time block 2-5</td>
+        </tr>
+        <tr>
+          <td>8:30pm</td>
+          <td>Time block 2-6</td>
+        </tr>
+        <tr>
+          <td>9:00pm</td>
+          <td>Time block 2-7</td>
+        </tr>
+        <tr>
+          <td>9:30pm</td>
+          <td>Time block 2-8</td>
+        </tr>
+        <tr>
+          <td>10:00pm</td>
+          <td>Time block 2-9</td>
+        </tr>
+        <tr>
+          <td>10:30pm</td>
+          <td>Time block 2-10</td>
+        </tr>
+        <tr>
+          <td>11:00pm</td>
+          <td>Time block 2-11</td>
+        </tr>
+        <tr>
+          <td>11:30pm</td>
+          <td>Time block 2-12</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <h4>Sunday</h4>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>6:00pm</td>
+          <td>Time block 3-1</td>
+        </tr>
+        <tr>
+          <td>6:30pm</td>
+          <td>Time block 3-2</td>
+        </tr>
+        <tr>
+          <td>7:00pm</td>
+          <td>Time block 3-3</td>
+        </tr>
+        <tr>
+          <td>7:30pm</td>
+          <td>Time block 3-4</td>
+        </tr>
+        <tr>
+          <td>8:00pm</td>
+          <td>Time block 3-5</td>
+        </tr>
+        <tr>
+          <td>8:30pm</td>
+          <td>Time block 3-6</td>
+        </tr>
+        <tr>
+          <td>9:00pm</td>
+          <td>Time block 3-7</td>
+        </tr>
+        <tr>
+          <td>9:30pm</td>
+          <td>Time block 3-8</td>
+        </tr>
+        <tr>
+          <td>10:00pm</td>
+          <td>Time block 3-9</td>
+        </tr>
+        <tr>
+          <td>10:30pm</td>
+          <td>Time block 3-10</td>
+        </tr>
+        <tr>
+          <td>11:00pm</td>
+          <td>Time block 3-11</td>
+        </tr>
+        <tr>
+          <td>11:30pm</td>
+          <td>Time block 3-12</td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
 <div class="container-fluid" id="section-schedule-loan">
-  <h1>EmerjLoan Schedule</h1>
-  <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
-      <p>Variable, we announce it through e-mails and social media.</p>
+	<h1 id="nav-title-wp-sched2">EmerjLoan Schedule</h1>
+	<div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <p>EmerjLoan begins immediately after the end of EmerjHack.</p>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <h4>Month 1</h4>
+      <p>Portfolios open.</p>
+      <p>Submissions must explain through a combination of GitHub, PDF, videos, and whatever else the aim and scope of your project, and show its current capabilities and outline its anticipated capabilities.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <h4>Month 4</h4>
+      <p>Portfolios close.</p>
+      <p>Judging begins and is conducted in multiple rounds, with the aid of professionals.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <h4>Month 5</h4>
+      <p>Interim winners announced.</p>
+      <p>Prizes are delivered to winning teams.</p>
+      <p>Portfolios open for revision.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <h4>Month 8</h4>
+      <p>Revised submissions must explain through a combination of GitHub, PDF, videos, and whatever else the aim and scope of your project, and show its current capabilities and outline its anticipated capabilities.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <h4>Month 9</h4>
+      <p>Portfolios close.</p>
+      <p>Judging begins and is conducted in multiple rounds, with the aid of professionals.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <h4>Month 11</h4>
+      <p>Hardware collected.</p>
+      <p>Runner-ups for finals announced, who will present on-stage at EmerjHack for judging.</p>
+    </div>
+  </div>
+
 </div>
 <!-- <div class="container-fluid" id="section-faq">
   <h1>FAQ</h1>
 </div> -->
 <div class="container-fluid" id="section-hardware">
-  <h1>Hardware</h1>
+  <h1 id="nav-title-wp-hw">Hardware</h1>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-      <h2>Augmented Reality  —</h2>
+      <h2>Augmented Reality</h2>
       <div class="row-flex-cont">
         <div class="p-img"><img src="{% static "images/1/project-tango-logo_2x.png" %}" /></div>
         <div class="p-img"><img src="{% static "images/1/META-Logo-home.png" %}" /></div>
@@ -144,7 +425,7 @@
   </div>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-      <h2>Wearables  —</h2>
+      <h2>Wearables</h2>
       <div class="row-flex-cont">
         <div class="p-img"><img src="{% static "images/1/myo_logo.png" %}" style="width: 300px;"/></div>
         <div class="p-img"><img src="{% static "images/1/pebble_logo2.png" %}" style="width: 350px;" /></div>
@@ -156,7 +437,7 @@
   </div>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-      <h2>Drones  —</h2>
+      <h2>Drones</h2>
       <div class="row-flex-cont">
         <div class="p-img"><img src="{% static "images/1/parrot-1.png" %}" style="width: 300px;"/></div>
         <div class="p-img"><img src="{% static "images/1/phantom-3.png" %}" style="width: 300px;" /></div>
@@ -165,7 +446,7 @@
   </div>
   <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
-      <h2>Sensors  —</h2>
+      <h2>Sensors</h2>
       <div class="row-flex-cont">
         <div class="p-img"><img src="{% static "images/1/mbientlab.png" %}" /></div>
         <div class="p-img"><img src="{% static "images/1/particle-horizontal-dark-093e6b1e.png" %}" /></div>
@@ -182,6 +463,7 @@
   </div>
 </div>
 
+
 <!-- <div class="container-fluid" id="section-press">
   <h1>Press Coverage</h1>
   <h4>See what others are saying</h4>
@@ -196,10 +478,16 @@
   <h1>About Us</h1>
 </div> -->
 <div class="container-fluid" id="section-sponsors">
-  <h1>Our Sponsors</h1>
+  <h1 id="nav-title-wp-sp">Our Sponsors</h1>
 
   <div class="text-center">
-    <p>You!</p>
+    <h4>You!</h4>
   </div>
+</div>
+
+<div class="container-fluid" id="section-contact">
+  <h1>Contact Us</h1>
+  <h3>Questions? Comments?</h3>
+  <h4>Email us at <a href="mailto:reach@emerjhack.com">reach@emerjhack.com</a></h4>
 </div>
 {% endblock content %}

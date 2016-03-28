@@ -47,6 +47,7 @@ h1 {
 	font-size: 25px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .row-flex-cont {
@@ -84,7 +85,11 @@ h1 {
 #section-title h3 {
 
 }
-
+#sticky-nav-placeholder {
+	height: 50px;
+	width: 1px;
+	display: none;
+}
 #section-nav {
 	margin-top: -50px;
 	border-radius: 0px;
@@ -93,28 +98,77 @@ h1 {
 	letter-spacing: 2px;
 	font-weight: 700;
 	z-index: 20;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+	border-bottom-style: none;
+	border-width: 0 0 1px;
 }
-#section-nav .icon-bar {
+#section-nav-2 {
+	border-radius: 0px;
+	background-color: #2fa268;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-weight: 700;
+	z-index: 20;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
+	border-bottom-style: none;
+	border-width: 0 0 1px;
+}
+.navbar-default .navbar-toggle .icon-bar {
 	background-color: white;
 }
-#section-nav a {
+.navbar .navbar-nav>li>a, .navbar .navbar-nav>li>a:visited, .navbar .navbar-nav>li>a:active {
 	color: white;
 }
-#section-nav #nav-title {
+.navbar .navbar-nav>li>a:hover {
+	color: #CAE8D9;
+}
+#nav-title-text, #nav-title-text-old, #nav-title-text:hover {
+	color: white;
+}
+.navbar #nav-title {
 	height: 30px;
 	margin-top: -2px;
 }
-#section-nav #nav-link-reg {
+.navbar .navbar-brand {
+	position: relative;
+}
+.navbar #nav-container {
+	padding-right: 0;
+}
+.navbar .navbar-header {
+	margin-right: 0px;
+}
+.navbar-fixed-top {
+	padding-right: 15px;
+	position: fixed;
+}
+.navbar #nav-title-text, .navbar #nav-title-text-old {
+	position: absolute;
+	top: 14px;
+	left: 130px;
+	font-size: 28px;
+	letter-spacing: 4px;
+	animation-duration: 0.2s;
+	animation-timing-function: ease-in-out;
+}
+.navbar #nav-link-reg {
 	background-color: #39C77C;
 }
-#section-nav #nav-link-login {
+.navbar #nav-link-login {
 	background-color: #39C77C;
+}
+#section-nav button.navbar-toggle {
+	margin-right: 15px;
+}
+#section-nav-2 button.navbar-toggle {
+	margin-right: 0px;
 }
 
 
 #section-about {
 	padding-top: 20px;
 	position: relative;
+	overflow-x: hidden;
 }
 #section-about #wire-1 {
 	position: absolute;
@@ -125,6 +179,14 @@ h1 {
 }
 #section-about h4 {
 	padding-top: 20px;
+}
+#nav-wp-element {
+	position: absolute;
+	left: 0;
+	top: -70px;
+	visibility: hidden;
+	width: 1;
+	height: 1;
 }
 
 #section-press {
@@ -143,12 +205,33 @@ h1 {
 #section-hardware {
 
 }
+#section-hardware h2 {
+	text-align: center;
+	margin-top: 40px;
+}
+#section-hardware .p-img {
+	margin: 10px;
+}
 #section-schedule {
 
 }
 #section-schedule table {
 	width: initial;
 	margin: 0 auto;
+	margin-bottom: 40px;
+}
+#section-schedule h4 {
+	text-align: center;
+}
+#section-schedule-loan p {
+	text-align: center;
+}
+#section-schedule-loan h4 {
+	text-align: center;
+	padding-bottom: 10px;
+}
+#section-schedule-loan .row {
+	margin-bottom: 20px;
 }
 
 #section-faq-2 {
@@ -171,13 +254,18 @@ h1 {
 }
 
 #section-sponsors {
-	height: 900px;
+	height: 200px;
 }
-#section-sponsors h1 {
-	color: black;
-	background-color: white;
-	font-size: 30px;
-	margin-bottom: 20px;
+#section-contact {
+	height: 600px;
+}
+#section-contact h4 {
+	text-align: center;
+	margin-top: 40px;
+}
+#section-contact h3, #section-contact h4 {
+	position: relative;
+	z-index: 10;
 }
 
 #section-footer {
@@ -220,4 +308,48 @@ h1 {
 }
 #section-footer p {
 	padding-top: 10px;
+}
+
+@keyframes nav-text-scrolldown-enter-animation {
+	from {
+		top: 5px;
+		opacity: 0;
+	}
+	to {
+		top: 14px;
+		opacity: 1;
+	}
+}
+
+@keyframes nav-text-scrolldown-exit-animation {
+	from {
+		top: 14px;
+		opacity: 1;
+	}
+	to {
+		top: 23px;
+		opacity: 0;
+	}
+}
+
+.nav-text-scrolldown-enter {
+	animation-name: nav-text-scrolldown-enter-animation;
+}
+.nav-text-scrolldown-exit {
+	animation-name:	nav-text-scrolldown-exit-animation;
+}
+
+
+#section-login {
+	margin-bottom: 200px;
+	margin-top: 50px;
+}
+#section-login h1 {
+	background-color: white;
+	color: #2FA268;
+	box-shadow: none;
+	margin-bottom: 30px;
+}
+#section-login label {
+	font-weight: 600;
 }
