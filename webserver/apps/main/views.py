@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .forms import *
 from hashlib import sha256
 from django.core.mail import send_mail
 from random import randint
@@ -30,9 +29,9 @@ def register(request):
         last_name = get_or_400(request.POST, 'last_name')
         password = get_or_400(request.POST, 'pwd')
 
-        username = sha256(email + str(randint(-1000000000,1000000000))).hexdigest()[0:30]
+        username = sha256(email + str(randint(-1000000000, 1000000000))).hexdigest()[0:30]
         while User.objects.filter(username = username).count():
-            username = sha256(username + str(randint(-1000000000,1000000000))).hexdigest()[0:30]
+            username = sha256(username + str(randint(-1000000000, 1000000000))).hexdigest()[0:30]
         user = User.objects.create_user(
             username = username,
             email = email,
@@ -41,11 +40,11 @@ def register(request):
             last_name = last_name,
             is_active = False
         )
-        activation_token = sha256(email + str(randint(-1000000000,1000000000))).hexdigest()[0:64]
+        activation_token = sha256(email + str(randint(-1000000000, 1000000000))).hexdigest()[0:64]
         while Account.objects.filter(activation_token = activation_token).count():
-            activation_token = sha256(email + str(randint(-1000000000,1000000000))).hexdigest()[0:64]
-        Account(user=user, activation_token=activation_token).save()
-        send_mail('Confirm your account', 'Visit: https://www.emerjhack.com/activation/' + activation_token, 'no-reply@emerjhack.com', [email], fail_silently=False)
+            activation_token = sha256(email + str(randint(-1000000000, 1000000000))).hexdigest()[0:64]
+        Account(user = user, activation_token = activation_token).save()
+        send_mail('Confirm your account', 'Visit: https://www.emerjhack.com/activation/' + activation_token, 'no-reply@emerjhack.com', [email], fail_silently = False)
         return HttpResponseRedirect('/')
 
     return render(request, 'register.html', {})
@@ -61,28 +60,24 @@ def activation(request, token):
 def login(request):
     error = []
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = User.objects.filter(email = form.cleaned_data['email'])
-            if username.count() == 1:
-                user = auth.authenticate(username=username[0], password=form.cleaned_data['password'])
-                if user is not None:
-                    if user.is_active:
-                        auth.login(request, user)
-                        return HttpResponseRedirect('/')
-                    else:
-                        form = LoginForm()
-                        error = ['You are either banned or you did not confirm your account through your email yet.']
+        email = get_or_400(request.POST, 'email')
+        password = get_or_400(request.POST, 'pwd')
+        username = User.objects.filter(email = email)
+        if username.count() == 1:
+            user = auth.authenticate(username = username[0], password = password)
+            if user is not None:
+                if user.is_active:
+                    auth.login(request, user)
+                    return HttpResponseRedirect('/')
                 else:
-                    form = LoginForm()
-                    error = ['Email or password incorrect']
+                    return render(request, 'login.html', {'error': 'You are either banned or you did not confirm your account through your email yet.'})
             else:
-                form = LoginForm()
-                error = ['Email or password incorrect']
-    else:
-        form = LoginForm()
-
-    return render(request, 'login.html', {'form': form, 'error': error})
+                return render(request, 'login.html', {'error': 'Email or password incorrect'})
+        else:
+            # This shouldn't ever happen ...
+            # TO DO: create admin notification with username.
+            return render(request, 'login.html', {'error': 'Email or password incorrect'})
+    return render(request, 'login.html', {})
 
 def logout(request):
     auth.logout(request)
