@@ -36,8 +36,13 @@
         <li><a href="#section-about" id="nav-link-about">About</a></li>
         <li><a href="#section-schedule" id="nav-link-sched">Schedule</a></li>
         <li><a href="#section-contact" id="nav-link-contact">Contact</a></li>
-        <li id="nav-link-reg"><a href="/register">Register</a></li>
-        <li id="nav-link-login"><a href="/login">Login</a></li>
+        {% if is_logged_in %}
+        <li id="nav-link-reg"><a href="/account/">Account</a></li>
+        <li id="nav-link-login"><a href="/logout/">Logout</a></li>
+        {% else %}
+        <li id="nav-link-reg"><a href="/register/">Register</a></li>
+        <li id="nav-link-login"><a href="/login/">Login</a></li>
+        {% endif %}
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

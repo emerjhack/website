@@ -6,6 +6,7 @@
 {% block content %}
 <div class="container" id="section-login">
   <h1>Register</h1>
+  {% if error %}Error: {{ error }}{% endif %}
   <form class="form-horizontal" role="form" action="" method="post">
     {% csrf_token %}
     <div class="form-group">
@@ -28,20 +29,20 @@
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2 col-sm-offset-2" for="pwd">Password</label>
-      <div class="col-sm-6"> 
+      <div class="col-sm-6">
         <input type="password" class="form-control" id="pwd" name="pwd" placeholder="********">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2 col-sm-offset-2" for="pwd_conf">Confirm password</label>
-      <div class="col-sm-6"> 
+      <div class="col-sm-6">
         <input type="password" class="form-control" id="pwd_conf" placeholder="********">
       </div>
     </div>
 
-    <div class="form-group"> 
+    <div class="form-group">
       <div class="col-sm-offset-4 col-sm-6">
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default btn-block">Submit</button>
       </div>
     </div>
   </form>
