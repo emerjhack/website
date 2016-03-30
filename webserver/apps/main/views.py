@@ -6,6 +6,7 @@ from hashlib import sha256
 from django.core.mail import send_mail
 from random import randint
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 def get_or_400(data, key):
     res = data.get(key)
@@ -83,5 +84,6 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
 
+@login_required
 def account(request):
     return render(request, 'account.html', {})
