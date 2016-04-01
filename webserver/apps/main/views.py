@@ -30,9 +30,9 @@ def register(request):
         last_name = get_or_400(request.POST, 'last_name')
         password = get_or_400(request.POST, 'pwd')
 
-        username = sha256(email + str(randint(-1000000000, 1000000000))).hexdigest()[0:30]
+        username = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:30]
         while User.objects.filter(username = username).count():
-            username = sha256(username + str(randint(-1000000000, 1000000000))).hexdigest()[0:30]
+            username = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:30]
         user = User.objects.create_user(
             username = username,
             email = email,
@@ -41,9 +41,9 @@ def register(request):
             last_name = last_name,
             is_active = False
         )
-        activation_token = sha256(email + str(randint(-1000000000, 1000000000))).hexdigest()[0:64]
+        activation_token = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:64]
         while Account.objects.filter(activation_token = activation_token).count():
-            activation_token = sha256(email + str(randint(-1000000000, 1000000000))).hexdigest()[0:64]
+            activation_token = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:64]
         Account(user = user, activation_token = activation_token).save()
         send_mail('Confirm your account', 'Visit: https://www.emerjhack.com/activation/' + activation_token, 'no-reply@emerjhack.com', [email], fail_silently = False)
         return HttpResponseRedirect('/')
