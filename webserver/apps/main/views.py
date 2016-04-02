@@ -45,7 +45,7 @@ def register(request):
         while Account.objects.filter(activation_token = activation_token).count():
             activation_token = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:64]
         Account(user = user, activation_token = activation_token).save()
-        send_mail('Confirm your account', 'Visit: https://www.emerjhack.com/activation/' + activation_token, 'no-reply@emerjhack.com', [email], fail_silently = False)
+        send_mail('Confirm your account', 'Visit: https://emerjhack.com/activation/' + activation_token, 'no-reply@outbound.emerjhack.com', [email], fail_silently = False)
         return HttpResponseRedirect('/')
 
     return render(request, 'register.html', {})

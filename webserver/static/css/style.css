@@ -92,6 +92,7 @@ h1 {
 }
 #section-nav {
 	margin-top: -50px;
+	margin-bottom: 0;
 	border-radius: 0px;
 	background-color: #2fa268;
 	text-transform: uppercase;
@@ -112,6 +113,12 @@ h1 {
 	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 4px 20px 0 rgba(0, 0, 0, 0.19);
 	border-bottom-style: none;
 	border-width: 0 0 1px;
+}
+.navbar-nav {
+	text-transform: none;
+	font-weight: 600;
+	letter-spacing: 1px;
+	font-weight: 500;
 }
 .navbar-default .navbar-toggle .icon-bar {
 	background-color: white;
@@ -151,12 +158,12 @@ h1 {
 	animation-duration: 0.2s;
 	animation-timing-function: ease-in-out;
 }
-.navbar #nav-link-reg {
+.navbar #nav-link-reg, .navbar #nav-link-login {
 	background-color: #39C77C;
+	text-transform: uppercase;
+	font-weight: 700;
 }
-.navbar #nav-link-login {
-	background-color: #39C77C;
-}
+
 #section-nav button.navbar-toggle {
 	margin-right: 15px;
 }
