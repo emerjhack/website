@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from random import randint
 from .models import *
 from django.contrib.auth.decorators import login_required
+import json
 
 def get_or_400(data, key):
     res = data.get(key)
@@ -25,7 +26,7 @@ def index(request):
 # TODO: Only allow UW or Laurier emails
 def register(request):
     if request.method == 'POST':
-        email = get_or_400(request.POST, 'email')
+        email = get_or_400(request.POST, 'email').lower()
         if User.objects.filter(email = email).count() != 0:
             return HttpResponseRedirect('/register/?status=bademail')
         first_name = get_or_400(request.POST, 'first_name')
@@ -76,7 +77,7 @@ def activation(request):
 
 def login(request):
     if request.method == 'POST':
-        email = get_or_400(request.POST, 'email')
+        email = get_or_400(request.POST, 'email').lower()
         password = get_or_400(request.POST, 'pwd')
         username = User.objects.filter(email = email)
         if username.count() == 0:
@@ -114,4 +115,115 @@ def logout(request):
 
 @login_required
 def account(request):
-    return render(request, 'account.html', {})
+    user = request.user
+    account = Account.objects.get(user = user)
+    profile = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'school': account.school,
+        'program': account.program,
+        'year_of_study': account.year_of_study,
+        'want_to_do': account.want_to_do,
+        'already_done': account.already_done,
+        'supporting_text': account.supporting_text
+    }
+    old_team = None
+    old_team_code = None
+    if account.team:
+        old_team = account.team
+        old_team_code = old_team.code
+        profile['team_code'] = old_team_code
+        old_team_members = json.loads(old_team.members)
+        profile['team_members'] = old_team_members
+
+    if request.method == 'POST':
+        errors = []
+        
+        first_name = get_or_400(request.POST, 'first_name')
+        if not first_name:
+            errors.append('You must have a first name.')
+        
+        last_name = get_or_400(request.POST, 'last_name')
+        if not last_name:
+            errors.append('You must have a last name.')
+        
+        email = get_or_400(request.POST, 'email').lower()
+        
+        if not email:
+            errors.append('You must have an email.')
+        if email != user.email and User.objects.filter(email = email).count() != 0:
+            errors.append('Email already in use.')
+        
+        school = get_or_400(request.POST, 'school')
+        if school not in settings.SCHOOLS:
+            errors.append('Invalid school.')
+        
+        program = get_or_400(request.POST, 'program')
+        
+        year_of_study = get_or_400(request.POST, 'year_of_study')
+        if year_of_study not in settings.YEARS:
+            errors.append('Invalid year of study.')
+
+        team_code = get_or_400(request.POST, 'team_code')
+        if team_code and team_code != old_team_code:
+            if len(team_code) > 256:
+                errors.append('Team code must be less than or equal to 256 character length.')
+            new_team, created = Team.objects.get_or_create(code=team_code)
+            new_team_members = json.loads(new_team.members)
+            if len(new_team_members) >= 4:
+                errors.append('Team is full.')
+
+        if errors:
+            return HttpResponseRedirect('/account/?status=failure&errors='+'\n'.join(errors))
+        else:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+
+            account.school = school
+            account.program = program
+            account.year_of_study = year_of_study
+
+            account.want_to_do = get_or_400(request.POST, 'want_to_do')
+            account.already_done = get_or_400(request.POST, 'already_done')
+
+            account.supporting_text = get_or_400(request.POST, 'supporting_text')
+
+            if team_code != old_team_code:
+                if old_team:
+                    # Leave old team
+                    account.team = None
+                    old_team_members.pop(email, None)
+                    if not old_team_members:
+                        # Team is now empty, delete the team.
+                        old_team.delete()
+                    else:
+                        old_team.members = json.dumps(old_team_members)
+                        old_team.save()
+                if team_code:
+                    # Join new team
+                    new_team_members[email] = first_name + ' ' + last_name
+                    new_team.members = json.dumps(new_team_members)
+                    new_team.save()
+                    account.team = new_team
+            user.save()
+            account.save()
+            return HttpResponseRedirect('/account/?status=success')
+    status = request.GET.get('status')
+    success = None
+    errors = request.GET.get('errors')
+    if errors:
+        errors = errors.split('\n')
+    if status == 'success':
+        success = 'Account successfully updated.'
+    elif status == 'error':
+        error = 'Something is wrong.'
+    print profile
+    return render(request, 'account.html', {
+        'success': success,
+        'errors': errors,
+        'profile': profile,
+        'schools': settings.SCHOOLS,
+        'years': settings.YEARS
+    })

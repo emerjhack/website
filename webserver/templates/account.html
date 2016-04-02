@@ -4,30 +4,106 @@
 {% block single_link %}<a href="/logout/">Logout</a>{% endblock single_link %}
 
 {% block content %}
+
 <div class="container" id="section-login">
   <h1>My Application</h1>
-  {% if error %}<div class="alert alert-warning">Error: {{ error }}</div>{% endif %}
-  {% if success %}<div class="alert alert-success">{{ success }}</div>{% endif %}
-  <form class="form-horizontal" role="form">
+  {% if errors %}
+  <div class="alert alert-danger col-sm-7 col-sm-offset-3">
+    <ul>
+      {% for error in errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% if success %}<div class="alert alert-success col-sm-7 col-sm-offset-3">{{ success }}</div>{% endif %}
+  <form class="form-horizontal" role="form" action="" method="post">
+    {% csrf_token %}
     <div class="form-group">
       <label class="control-label col-sm-2 col-sm-offset-2" for="first_name">First name</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="first_name" value="John">
+        <input type="text" class="form-control" id="first_name" name="first_name" value="{{ profile.first_name }}">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2 col-sm-offset-2" for="last_name">Last name</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="last_name" value="Smith">
+        <input type="text" class="form-control" id="last_name" name="last_name" value="{{ profile.last_name }}">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2 col-sm-offset-2" for="email">Email</label>
       <div class="col-sm-6">
-        <input type="email" class="form-control" id="email" value="john.smith@uwaterloo.ca">
+        <input type="email" class="form-control" id="email" name="email" value="{{ profile.email }}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="school">School</label>
+      <div class="col-sm-6">
+        <select class="form-control" id="school" name="school">
+          {% for school in schools %}
+          <option value="{{ school }}"{% if school == profile.school %} selected="selected"{% endif %}>{{ school }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="program">Program</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="program" name="program" value="{{ profile.program }}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="year_of_study">Year of study</label>
+      <div class="col-sm-6">
+        <select class="form-control" id="year_of_study" name="year_of_study">
+          {% for year in years %}
+          <option value="{{ year }}"{% if year == profile.year_of_study %} selected="selected"{% endif %}>{{ year }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="want_to_do">What you want to do</label>
+      <div class="col-sm-6">
+        <textarea class="form-control" rows="2" id="want_to_do" name="want_to_do" style="resize:vertical;">{{ profile.want_to_do }}</textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="already_done">What's already done</label>
+      <div class="col-sm-6">
+        <textarea class="form-control" rows="2" id="already_done" name="already_done" style="resize:vertical;">{{ profile.already_done }}</textarea>
       </div>
     </div>
 
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="supporting_text">Supporting text</label>
+      <div class="col-sm-6">
+        <textarea class="form-control" rows="2" id="supporting_text" name="supporting_text" style="resize:vertical;">{{ profile.supporting_text }}</textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="team_code">Team code</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="team_code" name="team_code" value="{{ profile.team_code }}">
+      </div>
+    </div>
+
+    {% if profile.team_members %}
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="team_members">Team members</label>
+      <div class="col-sm-6">
+        <p class="bg-info" id="team_members">
+          <ul>
+            {% for email, name in profile.team_members.items %}
+            <li>{{ name }} &lt;{{ email }}&gt;</li>
+            {% endfor %}
+          </ul>
+        </p>
+      </div>
+    </div>
+    {% endif %}
 
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-6">
