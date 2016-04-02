@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from .constants import *
 
 BASE_URL = os.environ['DJANGO_BASE_URL']
 

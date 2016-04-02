@@ -114,4 +114,83 @@ def logout(request):
 
 @login_required
 def account(request):
-    return render(request, 'account.html', {})
+    user = request.user
+    account = Account.objects.get(user = user)
+    profile = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'school': account.school,
+        'program': account.program,
+        'year_of_study': account.year_of_study,
+        'want_to_do': account.want_to_do,
+        'already_done': account.already_done,
+        'supporting_text': account.supporting_text
+    }
+    if request.method == 'POST':
+        errors = []
+        
+        first_name = get_or_400(request.POST, 'first_name')
+        if not first_name:
+            errors.append('You must have a first name.')
+        
+        last_name = get_or_400(request.POST, 'last_name')
+        if not last_name:
+            errors.append('You must have a last name.')
+        
+        email = get_or_400(request.POST, 'email')
+        
+        if not email:
+            errors.append('You must have an email.')
+        if email != user.email and User.objects.filter(email = email).count() != 0:
+            errors.append('Email already in use.')
+        
+        school = get_or_400(request.POST, 'school')
+        if school not in settings.SCHOOLS:
+            errors.append('Invalid school.')
+        
+        program = get_or_400(request.POST, 'program')
+        
+        year_of_study = get_or_400(request.POST, 'year_of_study')
+        if year_of_study not in settings.YEARS:
+            errors.append('Invalid year of study.')
+
+        want_to_do = get_or_400(request.POST, 'want_to_do')
+        already_done = get_or_400(request.POST, 'already_done')
+        supporting_text = get_or_400(request.POST, 'supporting_text')
+
+        if errors:
+            return HttpResponseRedirect('/account/?status=failure&errors='+'\n'.join(errors))
+        else:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+
+            account.school = school
+            account.program = program
+            account.year_of_study = year_of_study
+
+            account.want_to_do = want_to_do
+            account.already_done = already_done
+
+            account.supporting_text = supporting_text
+
+            user.save()
+            account.save()
+            return HttpResponseRedirect('/account/?status=success')
+    status = request.GET.get('status')
+    success = None
+    errors = request.GET.get('errors')
+    if errors:
+        errors = errors.split('\n')
+    if status == 'success':
+        success = 'Account successfully updated.'
+    elif status == 'error':
+        error = 'Something is wrong.'
+    return render(request, 'account.html', {
+        'success': success,
+        'errors': errors,
+        'profile': profile,
+        'schools': settings.SCHOOLS,
+        'years': settings.YEARS
+    })
