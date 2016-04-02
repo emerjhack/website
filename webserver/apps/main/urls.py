@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^login/$', views.login),
     url(r'^logout/$', views.logout),
     url(r'^account/$', views.account),
-    url(r'^activation/(?P<token>\w+)$', views.activation)
+    url(r'^activation/$', views.activation)
 ]
