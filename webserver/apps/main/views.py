@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.models import User
@@ -47,7 +48,7 @@ def register(request):
             activation_token = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:64]
         Account(user = user, activation_token = activation_token).save()
         # TODO: Make an HTML email.
-        send_mail('Confirm your account', 'Visit: https://emerjhack.com/activation/?token=' + activation_token, 'no-reply@outbound.emerjhack.com', [email], fail_silently = False)
+        send_mail('Confirm your account', 'Visit: ' + settings.BASE_URL + 'activation/?token=' + activation_token, 'no-reply@outbound.emerjhack.com', [email], fail_silently = False)
         return HttpResponseRedirect('/login/?status=registered')
     error = None
     status = request.GET.get('status')
