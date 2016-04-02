@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Team(models.Model):
-	code = models.CharField(max_length=256)
-	members = models.TextField(default='{}')
+    code = models.CharField(max_length=256)
+    members = models.TextField(default='{}')
+    def __str__(self):
+        return self.code
 
 class Account(models.Model):
     user = models.OneToOneField(User)
@@ -24,3 +26,6 @@ class Account(models.Model):
     supporting_text = models.TextField(blank=True, default='')
 
     application_status = models.CharField(max_length=64, blank=True, default='Profile Incomplete')
+
+    def __str__(self):
+        return self.user.first_name + ' ' + self.user.last_name + ' <' + self.user.email + '>'
