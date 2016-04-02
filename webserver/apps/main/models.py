@@ -28,4 +28,4 @@ class Account(models.Model):
     application_status = models.CharField(max_length=64, blank=True, default='Profile Incomplete')
 
     def __str__(self):
-        return self.user.email
+        return self.user.first_name + ' ' + self.user.last_name + ' <' + self.user.email + '>'
