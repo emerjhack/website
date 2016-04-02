@@ -21,6 +21,7 @@ def index(request):
         is_logged_in = False
     return render(request, 'index.html', {'is_logged_in': is_logged_in})
 
+# TODO: Only allow UW or Laurier emails
 def register(request):
     if request.method == 'POST':
         email = get_or_400(request.POST, 'email')
