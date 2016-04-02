@@ -10,9 +10,9 @@
   {% if errors %}
   <div class="alert alert-danger col-sm-7 col-sm-offset-3">
     <ul>
-    {% for error in errors %}
-    <li>{{ error }}</li>
-    {% endfor %}
+      {% for error in errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
     </ul>
   </div>
   {% endif %}
@@ -82,6 +82,28 @@
         <textarea class="form-control" rows="2" id="supporting_text" name="supporting_text" style="resize:vertical;">{{ profile.supporting_text }}</textarea>
       </div>
     </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="team_code">Team code</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="team_code" name="team_code" value="{{ profile.team_code }}">
+      </div>
+    </div>
+
+    {% if profile.team_members %}
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="team_members">Team members</label>
+      <div class="col-sm-6">
+        <p class="bg-info" id="team_members">
+          <ul>
+            {% for email, name in profile.team_members.items %}
+            <li>{{ name }} &lt;{{ email }}&gt;</li>
+            {% endfor %}
+          </ul>
+        </p>
+      </div>
+    </div>
+    {% endif %}
 
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-6">

@@ -3,8 +3,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Team(models.Model):
+	code = models.CharField(max_length=256)
+	members = models.TextField(default='{}')
+
 class Account(models.Model):
     user = models.OneToOneField(User)
+    team = models.ForeignKey(Team, null=True, default=None)
     activation_token = models.CharField(max_length=64)
 
     school = models.CharField(max_length=64, blank=True, default='')
@@ -17,7 +22,5 @@ class Account(models.Model):
     resume = models.FileField(upload_to='uploaded/', blank=True, null=True)
     supporting_files = models.FileField(upload_to='uploaded/', blank=True, null=True)
     supporting_text = models.TextField(blank=True, default='')
-
-    team_code = models.CharField(max_length=64, blank=True, default='')
 
     application_status = models.CharField(max_length=64, blank=True, default='Profile Incomplete')
