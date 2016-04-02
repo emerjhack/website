@@ -4,8 +4,8 @@
 {% block content %}
 <div class="container" id="section-login">
   <h1>Login</h1>
-  {% if error %}<div class="alert alert-warning">Error: {{ error }}</div>{% endif %}
-  {% if info %}<div class="alert alert-info">{{ info }}</div>{% endif %}
+  {% if error %}<div class="alert alert-danger col-sm-7 col-sm-offset-3">{{ error }}</div>{% endif %}
+  {% if info %}<div class="alert alert-info col-sm-7 col-sm-offset-3">{{ info }}</div>{% endif %}
   <form class="form-horizontal" role="form" action="" method="post">
     {% csrf_token %}
     <div class="form-group">

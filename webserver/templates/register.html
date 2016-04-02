@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container" id="section-login">
   <h1>Register</h1>
-  {% if error %}<div class="alert alert-warning">Error: {{ error }}</div>{% endif %}
+  {% if error %}<div class="alert alert-danger col-sm-7 col-sm-offset-3">{{ error }}</div>{% endif %}
   <form class="form-horizontal" role="form" action="" method="post">
     {% csrf_token %}
     <div class="form-group">
