@@ -28,7 +28,8 @@ class Account(models.Model):
     supporting_files = models.FileField(upload_to='uploaded/', blank=True, null=True)
     supporting_text = models.TextField(blank=True, default='')
 
-    application_status = models.CharField(max_length=64, blank=True, default='Profile Incomplete')
+    # Profile incomplete, Profile complete but not applied, Applied, ...
+    application_status = models.CharField(max_length=64, blank=True, default='Profile incomplete')
 
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name + ' <' + self.user.email + '>'
