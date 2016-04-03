@@ -121,6 +121,7 @@ def logout(request):
     return HttpResponseRedirect('/')
 
 
+# TODO: After changing email, don't commit email change until user confirms new email address
 @login_required
 def my_account(request):
     user = request.user
