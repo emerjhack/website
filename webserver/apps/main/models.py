@@ -12,7 +12,7 @@ class Team(models.Model):
 class Account(models.Model):
     user = models.OneToOneField(User)
     team = models.ForeignKey(Team, null=True, default=None)
-    activation_token = models.CharField(max_length=64)
+    activation_token = models.CharField(max_length=64, null=True)
 
     school = models.CharField(max_length=64, blank=True, default='')
     program = models.CharField(max_length=64, blank=True, default='')

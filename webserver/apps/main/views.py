@@ -116,7 +116,8 @@ def logout(request):
 @login_required
 def account(request):
     user = request.user
-    account = Account.objects.get(user = user)
+    # Switched to get_or_create to fix issues regarding manually created accounts.
+    account, created = Account.objects.get_or_create(user = user, activation_token = None)
     profile = {
         'first_name': user.first_name,
         'last_name': user.last_name,
@@ -152,7 +153,7 @@ def account(request):
         
         if not email:
             errors.append('You must have an email.')
-        if email != user.email and User.objects.filter(email = email).count() != 0:
+        elif email != user.email and User.objects.filter(email = email).count() != 0:
             errors.append('Email already in use.')
         
         school = get_or_400(request.POST, 'school')
