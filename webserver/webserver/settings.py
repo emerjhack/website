@@ -59,7 +59,7 @@ ROOT_URLCONF = 'webserver.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR + '/templates/',],
+        'DIRS': [BASE_DIR + '/templates/', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,8 +87,8 @@ if os.environ['DJANGO_PRODUCTION'] == 'TRUE':
             'PASSWORD': os.environ['DJANGO_DB_PASS'],
             'HOST': os.environ['DJANGO_DB_HOST'],
             'PORT': os.environ['DJANGO_DB_PORT'],
+        }
     }
-}
 else:
     DATABASES = {
         'default': {
@@ -156,7 +156,7 @@ EMAIL_USE_TLS = True
 if os.environ['DJANGO_PRODUCTION'] == 'TRUE':
     SECURE_HSTS_SECONDS = 31536000
     SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_BROWSER_XSS_FILTER =  True
+    SECURE_BROWSER_XSS_FILTER = True
     # SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_HTTPONLY = True

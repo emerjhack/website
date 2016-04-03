@@ -10,10 +10,13 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 import json
 
+
 def get_or_400(data, key):
     res = data.get(key)
-    if res is None: return HttpResponseBadRequest
+    if res is None:
+        return HttpResponseBadRequest
     return res
+
 
 # Create your views here.
 def index(request):
@@ -23,33 +26,34 @@ def index(request):
         is_logged_in = False
     return render(request, 'index.html', {'is_logged_in': is_logged_in})
 
+
 # TODO: Only allow UW or Laurier emails
 def register(request):
     if request.method == 'POST':
         email = get_or_400(request.POST, 'email').lower()
-        if User.objects.filter(email = email).count() != 0:
+        if User.objects.filter(email=email).count() != 0:
             return HttpResponseRedirect('/register/?status=bademail')
         first_name = get_or_400(request.POST, 'first_name')
         last_name = get_or_400(request.POST, 'last_name')
         password = get_or_400(request.POST, 'pwd')
 
         username = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:30]
-        while User.objects.filter(username = username).count():
+        while User.objects.filter(username=username).count():
             username = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:30]
         user = User.objects.create_user(
-            username = username,
-            email = email,
-            password = password,
-            first_name = first_name,
-            last_name = last_name,
-            is_active = False
+            username=username,
+            email=email,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            is_active=False
         )
         activation_token = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:64]
-        while Account.objects.filter(activation_token = activation_token).count():
+        while Account.objects.filter(activation_token=activation_token).count():
             activation_token = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:64]
-        Account(user = user, activation_token = activation_token).save()
+        Account(user=user, activation_token=activation_token).save()
         # TODO: Make an HTML email.
-        send_mail('Confirm your account', 'Visit: ' + settings.BASE_URL + 'activation/?token=' + activation_token, 'no-reply@outbound.emerjhack.com', [email], fail_silently = False)
+        send_mail('Confirm your account', 'Visit: ' + settings.BASE_URL + 'activation/?token=' + activation_token, 'no-reply@outbound.emerjhack.com', [email], fail_silently=False)
         return HttpResponseRedirect('/login/?status=registered')
     error = None
     status = request.GET.get('status')
@@ -59,10 +63,11 @@ def register(request):
         error = 'Confirmation address invalid.'
     return render(request, 'register.html', {'error': error})
 
+
 def activation(request):
     token = request.GET.get('token')
     if token:
-        account = Account.objects.filter(activation_token = token)
+        account = Account.objects.filter(activation_token=token)
         if account.count() == 0:
             return HttpResponseRedirect('/register/?status=badtoken')
         elif account.count() == 1:
@@ -75,15 +80,16 @@ def activation(request):
             pass
     return HttpResponseRedirect('/register/?status=badtoken')
 
+
 def login(request):
     if request.method == 'POST':
         email = get_or_400(request.POST, 'email').lower()
         password = get_or_400(request.POST, 'pwd')
-        username = User.objects.filter(email = email)
+        username = User.objects.filter(email=email)
         if username.count() == 0:
             return HttpResponseRedirect('/login/?status=badlogin')
         if username.count() == 1:
-            user = auth.authenticate(username = username[0], password = password)
+            user = auth.authenticate(username=username[0], password=password)
             if user is not None:
                 if user.is_active:
                     auth.login(request, user)
@@ -109,14 +115,18 @@ def login(request):
         error = 'Email or password incorrect.'
     return render(request, 'login.html', {'info': info, 'error': error})
 
+
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
 
+
+# TODO: After changing email, don't commit email change until user confirms new email address
 @login_required
-def account(request):
+def my_account(request):
     user = request.user
-    account = Account.objects.get(user = user)
+    # Switched to get_or_create to fix issues regarding manually created accounts.
+    account, created = Account.objects.get_or_create(user=user)
     profile = {
         'first_name': user.first_name,
         'last_name': user.last_name,
@@ -139,43 +149,43 @@ def account(request):
 
     if request.method == 'POST':
         errors = []
-        
+
         first_name = get_or_400(request.POST, 'first_name')
         if not first_name:
-            errors.append('You must have a first name.')
-        
+            errors.append('You must have a first name')
+
         last_name = get_or_400(request.POST, 'last_name')
         if not last_name:
-            errors.append('You must have a last name.')
-        
+            errors.append('You must have a last name')
+
         email = get_or_400(request.POST, 'email').lower()
-        
+
         if not email:
-            errors.append('You must have an email.')
-        if email != user.email and User.objects.filter(email = email).count() != 0:
-            errors.append('Email already in use.')
-        
+            errors.append('You must have an email')
+        elif email != user.email and User.objects.filter(email=email).count() != 0:
+            errors.append('Email already in use')
+
         school = get_or_400(request.POST, 'school')
         if school not in settings.SCHOOLS:
-            errors.append('Invalid school.')
-        
+            errors.append('Invalid school')
+
         program = get_or_400(request.POST, 'program')
-        
+
         year_of_study = get_or_400(request.POST, 'year_of_study')
         if year_of_study not in settings.YEARS:
-            errors.append('Invalid year of study.')
+            errors.append('Invalid year of study')
 
         team_code = get_or_400(request.POST, 'team_code')
         if team_code and team_code != old_team_code:
             if len(team_code) > 256:
-                errors.append('Team code must be less than or equal to 256 character length.')
+                errors.append('Team code must be less than or equal to 256 character length')
             new_team, created = Team.objects.get_or_create(code=team_code)
             new_team_members = json.loads(new_team.members)
             if len(new_team_members) >= 4:
-                errors.append('Team is full.')
+                errors.append('Team is full')
 
         if errors:
-            return HttpResponseRedirect('/account/?status=failure&errors='+'\n'.join(errors))
+            return HttpResponseRedirect('/account/?errors='+'\n'.join(errors).replace(' ', '_'))
         else:
             user.first_name = first_name
             user.last_name = last_name
@@ -213,13 +223,10 @@ def account(request):
     status = request.GET.get('status')
     success = None
     errors = request.GET.get('errors')
-    if errors:
-        errors = errors.split('\n')
     if status == 'success':
         success = 'Account successfully updated.'
-    elif status == 'error':
-        error = 'Something is wrong.'
-    print profile
+    elif errors is not None:
+        errors = errors.replace('_', ' ').split('\n')
     return render(request, 'account.html', {
         'success': success,
         'errors': errors,
