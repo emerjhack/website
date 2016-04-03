@@ -86,6 +86,7 @@ def login(request):
         email = get_or_400(request.POST, 'email').lower()
         password = get_or_400(request.POST, 'pwd')
         username = User.objects.filter(email=email)
+        remember_me = request.POST.get('remember_me')
         if username.count() == 0:
             return HttpResponseRedirect('/login/?status=badlogin')
         if username.count() == 1:
@@ -93,6 +94,8 @@ def login(request):
             if user is not None:
                 if user.is_active:
                     auth.login(request, user)
+                    if remember_me is None:
+                        request.session.set_expiry(0)
                     return HttpResponseRedirect('/account/')
                 else:
                     return HttpResponseRedirect('/login/?status=unactive')
