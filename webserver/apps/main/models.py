@@ -2,17 +2,20 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Team(models.Model):
     code = models.CharField(max_length=256)
     members = models.TextField(default='{}')
+
     def __str__(self):
         return self.code
+
 
 class Account(models.Model):
     user = models.OneToOneField(User)
     team = models.ForeignKey(Team, null=True, default=None)
-    activation_token = models.CharField(max_length=64, null=True)
+    activation_token = models.CharField(max_length=64, null=True, default=None)
 
     school = models.CharField(max_length=64, blank=True, default='')
     program = models.CharField(max_length=64, blank=True, default='')

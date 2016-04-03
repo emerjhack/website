@@ -125,7 +125,7 @@ def logout(request):
 def my_account(request):
     user = request.user
     # Switched to get_or_create to fix issues regarding manually created accounts.
-    account, created = Account.objects.get_or_create(user=user, activation_token=None)
+    account, created = Account.objects.get_or_create(user=user)
     profile = {
         'first_name': user.first_name,
         'last_name': user.last_name,
@@ -151,40 +151,40 @@ def my_account(request):
 
         first_name = get_or_400(request.POST, 'first_name')
         if not first_name:
-            errors.append('You must have a first name.')
+            errors.append('You must have a first name')
 
         last_name = get_or_400(request.POST, 'last_name')
         if not last_name:
-            errors.append('You must have a last name.')
+            errors.append('You must have a last name')
 
         email = get_or_400(request.POST, 'email').lower()
 
         if not email:
-            errors.append('You must have an email.')
+            errors.append('You must have an email')
         elif email != user.email and User.objects.filter(email=email).count() != 0:
-            errors.append('Email already in use.')
+            errors.append('Email already in use')
 
         school = get_or_400(request.POST, 'school')
         if school not in settings.SCHOOLS:
-            errors.append('Invalid school.')
+            errors.append('Invalid school')
 
         program = get_or_400(request.POST, 'program')
 
         year_of_study = get_or_400(request.POST, 'year_of_study')
         if year_of_study not in settings.YEARS:
-            errors.append('Invalid year of study.')
+            errors.append('Invalid year of study')
 
         team_code = get_or_400(request.POST, 'team_code')
         if team_code and team_code != old_team_code:
             if len(team_code) > 256:
-                errors.append('Team code must be less than or equal to 256 character length.')
+                errors.append('Team code must be less than or equal to 256 character length')
             new_team, created = Team.objects.get_or_create(code=team_code)
             new_team_members = json.loads(new_team.members)
             if len(new_team_members) >= 4:
-                errors.append('Team is full.')
+                errors.append('Team is full')
 
         if errors:
-            return HttpResponseRedirect('/account/?errors='+'\n'.join(errors))
+            return HttpResponseRedirect('/account/?errors='+'\n'.join(errors).replace(' ', '_'))
         else:
             user.first_name = first_name
             user.last_name = last_name
@@ -225,7 +225,7 @@ def my_account(request):
     if status == 'success':
         success = 'Account successfully updated.'
     elif errors is not None:
-        errors = errors.split('\n')
+        errors = errors.replace('_', ' ').split('\n')
     return render(request, 'account.html', {
         'success': success,
         'errors': errors,
