@@ -184,7 +184,7 @@ def my_account(request):
                 errors.append('Team is full.')
 
         if errors:
-            return HttpResponseRedirect('/account/?status=failure&errors='+'\n'.join(errors))
+            return HttpResponseRedirect('/account/?errors='+'\n'.join(errors))
         else:
             user.first_name = first_name
             user.last_name = last_name
@@ -224,7 +224,7 @@ def my_account(request):
     errors = request.GET.get('errors')
     if status == 'success':
         success = 'Account successfully updated.'
-    elif status == 'failure':
+    elif errors is not None:
         errors = errors.split('\n')
     return render(request, 'account.html', {
         'success': success,
