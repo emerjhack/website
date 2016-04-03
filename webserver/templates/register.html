@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block css %}<script src='https://www.google.com/recaptcha/api.js'></script>{% endblock css %}
+
 {% block single_link %}<a href="/login/">Login</a>{% endblock single_link %}
 
 {% block content %}
@@ -37,6 +39,12 @@
       <label class="control-label col-sm-2 col-sm-offset-2" for="pwd_conf">Confirm password</label>
       <div class="col-sm-6">
         <input type="password" class="form-control" id="pwd_conf" placeholder="********">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="g-recaptcha"></label>
+      <div class="col-sm-6">
+        <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6LedFBwTAAAAAL5k0FOKYIULPOJlr2NJ7SXXX03n"></div>
       </div>
     </div>
 
