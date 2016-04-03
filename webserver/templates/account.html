@@ -17,28 +17,33 @@
   </div>
   {% endif %}
   {% if success %}<div class="alert alert-success col-sm-7 col-sm-offset-3">{{ success }}</div>{% endif %}
+  <div class="alert alert-info col-sm-7 col-sm-offset-3">
+    ** marks mandatory fields<br>
+    *&nbsp;&nbsp; marks mandatory fields for application<br><br>
+    Account status: <strong>{{ profile.status }}</strong>
+  </div>
   <form class="form-horizontal" role="form" action="" method="post">
     {% csrf_token %}
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="first_name">First name</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="first_name">** First name</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="first_name" name="first_name" value="{{ profile.first_name }}">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="last_name">Last name</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="last_name">** Last name</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="last_name" name="last_name" value="{{ profile.last_name }}">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="email">Email</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="email">** Email</label>
       <div class="col-sm-6">
         <input type="email" class="form-control" id="email" name="email" value="{{ profile.email }}">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="school">School</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="school">* School</label>
       <div class="col-sm-6">
         <select class="form-control" id="school" name="school">
           {% for school in schools %}
@@ -48,13 +53,13 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="program">Program</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="program">* Program</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="program" name="program" value="{{ profile.program }}">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="year_of_study">Year of study</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="year_of_study">* Year of study</label>
       <div class="col-sm-6">
         <select class="form-control" id="year_of_study" name="year_of_study">
           {% for year in years %}
@@ -64,7 +69,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="want_to_do">What you want to do</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="want_to_do">* What you want to do</label>
       <div class="col-sm-6">
         <textarea class="form-control" rows="2" id="want_to_do" name="want_to_do" style="resize:vertical;">{{ profile.want_to_do }}</textarea>
       </div>
@@ -77,7 +82,21 @@
     </div>
 
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="supporting_text">Supporting text</label>
+      <label class="control-label col-sm-2 col-sm-offset-2" for="resume">* Resume</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="resume" name="resume" value="Jeffrey please implement">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="supporting_files">Supporting files (zip it)</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="supporting_files" name="supporting_files" value="Jeffrey please implement">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="supporting_text">Anything else?</label>
       <div class="col-sm-6">
         <textarea class="form-control" rows="2" id="supporting_text" name="supporting_text" style="resize:vertical;">{{ profile.supporting_text }}</textarea>
       </div>
@@ -107,9 +126,23 @@
 
     <div class="form-group">
       <div class="col-sm-offset-4 col-sm-6">
-        <button class="btn btn-default btn-block">Update profile</button>
+        <button class="btn btn-default btn-block" name="save">Save</button>
       </div>
     </div>
+
+    {% if profile.status == 'Profile complete but not applied' %}
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-6">
+        <button class="btn btn-default btn-block" name="save_apply">Save & Apply</button>
+      </div>
+    </div>
+    {% elif profile.status == 'Applied' %}
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-6">
+        <button class="btn btn-default btn-block" name="save_unapply">Save & Withdraw application</button>
+      </div>
+    </div>
+    {% endif %}
   </form>
 </div>
 

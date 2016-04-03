@@ -18,6 +18,29 @@ def get_or_400(data, key):
     return res
 
 
+def user_profile_complete(user, account):
+    if not user.first_name:
+        return False
+    if not user.last_name:
+        return False
+    if not user.email:
+        return False
+
+    if not account.user:
+        return False
+    if not account.school:
+        return False
+    if not account.program:
+        return False
+    if not account.year_of_study:
+        return False
+    if not account.want_to_do:
+        return False
+    # if not account.resume:
+    #     return False
+
+    return True
+
 # Create your views here.
 def index(request):
     if request.user.is_authenticated():
@@ -131,6 +154,7 @@ def my_account(request):
     # Switched to get_or_create to fix issues regarding manually created accounts.
     account, created = Account.objects.get_or_create(user=user)
     profile = {
+        'status': account.application_status,
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
@@ -220,6 +244,13 @@ def my_account(request):
                     new_team.members = json.dumps(new_team_members)
                     new_team.save()
                     account.team = new_team
+            if user_profile_complete(user, account):
+                if 'save_apply' in request.POST:
+                    account.application_status = 'Applied'
+                else:
+                    account.application_status = 'Profile complete but not applied'
+            else:
+                account.application_status = 'Profile incomplete'
             user.save()
             account.save()
             return HttpResponseRedirect('/account/?status=success')
