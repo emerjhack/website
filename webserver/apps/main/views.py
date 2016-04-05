@@ -8,7 +8,10 @@ from django.core.mail import send_mail
 from random import randint
 from .models import *
 from django.contrib.auth.decorators import login_required
+from ipware.ip import get_ip
+
 import json
+import requests
 
 
 def get_or_400(data, key):
@@ -16,6 +19,14 @@ def get_or_400(data, key):
     if res is None:
         return HttpResponseBadRequest
     return res
+
+
+def encode_list(l):
+    return '-'.join(l).replace(' ', '_')
+
+
+def decode_list(l):
+    return l.replace('_', ' ').split('-')
 
 
 def user_profile_complete(user, account):
@@ -50,15 +61,41 @@ def index(request):
     return render(request, 'index.html', {'is_logged_in': is_logged_in})
 
 
-# TODO: Only allow UW or Laurier emails
 def register(request):
     if request.method == 'POST':
+        errors = []
+        captcha = request.POST.get('g-recaptcha-response')
+        if captcha:
+            payload = {
+                'secret': settings.CAPTCHA_SECRET_KEY,
+                'response': captcha
+            }
+            ip = get_ip(request)
+            if ip is not None:
+                payload['remoteip'] = ip
+            r = requests.post("https://www.google.com/recaptcha/api/siteverify", data=payload)
+            if not r.json()['success']:
+                errors.append('Failure verifying captcha')
+        else:
+            errors.append('Failure verifying captcha')
         email = get_or_400(request.POST, 'email').lower()
-        if User.objects.filter(email=email).count() != 0:
-            return HttpResponseRedirect('/register/?status=bademail')
+        if email:
+            if User.objects.filter(email=email).count() != 0:
+                errors.append('Email already in use')
+        else:
+            errors.append('Email cannot be empty')
         first_name = get_or_400(request.POST, 'first_name')
+        if not first_name:
+            errors.append('First name cannot be empty')
         last_name = get_or_400(request.POST, 'last_name')
+        if not last_name:
+            errors.append('Last name cannot be empty')
         password = get_or_400(request.POST, 'pwd')
+        if not password:
+            errors.append('Password cannot be empty')
+
+        if errors:
+            return HttpResponseRedirect('/register/?errors=' + encode_list(errors))
 
         username = sha256((email + str(randint(-1000000000, 1000000000))).encode('utf-8')).hexdigest()[0:30]
         while User.objects.filter(username=username).count():
@@ -78,13 +115,11 @@ def register(request):
         # TODO: Make an HTML email.
         send_mail('Confirm your account', 'Visit: ' + settings.BASE_URL + 'activation/?token=' + activation_token, 'no-reply@outbound.emerjhack.com', [email], fail_silently=False)
         return HttpResponseRedirect('/login/?status=registered')
-    error = None
-    status = request.GET.get('status')
-    if status == 'bademail':
-        error = 'Email already in use.'
-    elif status == 'badtoken':
-        error = 'Confirmation address invalid.'
-    return render(request, 'register.html', {'error': error})
+
+    errors = request.GET.get('errors')
+    if errors:
+        errors = decode_list(errors)
+    return render(request, 'register.html', {'errors': errors})
 
 
 def activation(request):
@@ -92,7 +127,7 @@ def activation(request):
     if token:
         account = Account.objects.filter(activation_token=token)
         if account.count() == 0:
-            return HttpResponseRedirect('/register/?status=badtoken')
+            return HttpResponseRedirect('/register/?errors=Invalid_activation_token')
         elif account.count() == 1:
             user = account[0].user
             user.is_active = True
@@ -101,7 +136,7 @@ def activation(request):
         else:
             # We have a token collision ...
             pass
-    return HttpResponseRedirect('/register/?status=badtoken')
+    return HttpResponseRedirect('/register/?errors=Invalid_activation_token')
 
 
 def login(request):
@@ -212,7 +247,7 @@ def my_account(request):
                 errors.append('Team is full')
 
         if errors:
-            return HttpResponseRedirect('/account/?errors='+'-'.join(errors).replace(' ', '_'))
+            return HttpResponseRedirect('/account/?errors='+encode_list(errors))
         else:
             user.first_name = first_name
             user.last_name = last_name
@@ -253,6 +288,8 @@ def my_account(request):
                 account.application_status = 'Profile incomplete'
             user.save()
             account.save()
+            if not user_profile_complete(user, account) and 'save_apply' in request.POST:
+                return HttpResponseRedirect('/account/?errors=' + encode_list(['Could not apply because your profile is incomplete ... but we saved what you changed', ]))
             return HttpResponseRedirect('/account/?status=success')
     status = request.GET.get('status')
     success = None
@@ -260,7 +297,7 @@ def my_account(request):
     if status == 'success':
         success = 'Account successfully updated.'
     elif errors is not None:
-        errors = errors.replace('_', ' ').split('-')
+        errors = decode_list(errors)
     return render(request, 'account.html', {
         'success': success,
         'errors': errors,
