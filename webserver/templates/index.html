@@ -33,9 +33,9 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#about" id="nav-link-about">About</a></li>
-        <li><a href="#schedule" id="nav-link-sched">Schedule</a></li>
-        <li><a href="#contact" id="nav-link-contact">Contact</a></li>
+        <li><a href="/#about" id="nav-link-about">About</a></li>
+        <li><a href="/#schedule" id="nav-link-sched">Schedule</a></li>
+        <li><a href="/#contact" id="nav-link-contact">Contact</a></li>
         {% if is_logged_in %}
         <li id="nav-link-reg"><a href="/account/">Account</a></li>
         <li id="nav-link-login"><a href="/logout/">Logout</a></li>
@@ -51,6 +51,9 @@
 
 {% block content %}
 <div class="container-fluid" id="about">
+  <script type="text/javascript">
+    window._page_id='home';
+  </script>
   <div id="nav-wp-element"></div>
 	<img id="wire-1" src="{% static "images/wire-1.svg" %}"></img>
   <div class="row">
@@ -444,7 +447,8 @@
     <div class="col-sm-10 col-sm-offset-1">
       <h2>Drones</h2>
       <div class="row-flex-cont">
-        <div class="p-img"><img src="{% static "images/1/parrot-1.png" %}" style="width: 300px;"/></div>
+        <div class="p-img"><img src="{% static "images/1/parrot-1.png" %}" style="width: 250px;"/></div>
+        <div class="p-img"><img src="{% static "images/1/sphero-logo.png" %}" style="width: 250px;" /></div>
         <div class="p-img"><img src="{% static "images/1/phantom-3.png" %}" style="width: 300px;" /></div>
       </div>
     </div>
@@ -454,7 +458,7 @@
       <h2>Sensors</h2>
       <div class="row-flex-cont">
         <div class="p-img"><img src="{% static "images/1/mbientlab.png" %}" /></div>
-        <div class="p-img"><img src="{% static "images/1/particle-horizontal-dark-093e6b1e.png" %}" /></div>
+        <div class="p-img"><img src="{% static "images/1/particle-horizontal-dark-093e6b1e.png" %}" style="width: 300px;" /></div>
         <div class="p-img"><img src="{% static "images/1/estimote-logo.c0e188fa.png" %}" style="width: 200px;" /></div>
         <div class="p-img"><img src="{% static "images/1/leap-motion-logo.png" %}" style="width: 250px;" /></div>
         <div class="p-img"><img src="{% static "images/1/765px-Kinect_logo.svg.png" %}" style="width: 300px;" /></div>

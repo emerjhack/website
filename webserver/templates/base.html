@@ -27,7 +27,16 @@
 
       <div class="collapse navbar-collapse" id="navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
-          <li id="nav-link-reg">{% block single_link %}<a href="/register/">Register</a>{% endblock single_link %}</li>
+          <li><a href="/#about" id="nav-link-about">About</a></li>
+          <li><a href="/#schedule" id="nav-link-sched">Schedule</a></li>
+          <li><a href="/#contact" id="nav-link-contact">Contact</a></li>
+          {% if is_logged_in %}
+          <li id="nav-link-reg"><a href="/account/">Account</a></li>
+          <li id="nav-link-login"><a href="/logout/">Logout</a></li>
+          {% else %}
+          <li id="nav-link-reg"><a href="/register/">Register</a></li>
+          <li id="nav-link-login"><a href="/login/">Login</a></li>
+          {% endif %}
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

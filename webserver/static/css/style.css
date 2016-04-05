@@ -267,8 +267,9 @@ nav {
 	height: 200px;
 }
 #contact {
-	height: 600px;
+
 }
+
 #contact h4 {
 	text-align: center;
 	margin-top: 40px;
@@ -307,6 +308,7 @@ nav {
 	left: 0;
 	bottom: 0;
 	width: 100%;
+	visibility: hidden;
 }
 #section-footer table {
 	margin: 0 auto;
@@ -362,4 +364,10 @@ nav {
 }
 #section-login label {
 	font-weight: 600;
+}
+.form-control {
+	border-radius: 0;
+}
+.btn {
+	border-radius: 0;
 }

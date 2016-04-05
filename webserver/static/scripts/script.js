@@ -12,8 +12,10 @@ $(document).ready(function(){
         	$('#footer-bg').css('bottom', (-overflow) + 'px');
         	$('#section-footer > div').css('bottom', (-overflow) + 'px');
         }
+
+        $('#footer-bg').css('visibility', 'visible');
 	};
-	setTimeout(rsHandler, 100);
+	setTimeout(rsHandler, 1);
 	$(window).resize(rsHandler);
 
 	$('#nav-wp-element').waypoint({
@@ -96,25 +98,30 @@ $(document).ready(function(){
   	$('#nav-title-wp-contact').waypoint(wpobj('Sponsors', 'Contact'));
 
   	var addLink = function(button, target) {
-  		$(button).click(function(e) {
-  			e.preventDefault();
+  		if (window._page_id == 'home') {
+	  		$(button).click(function(e) {
+	  			e.preventDefault();
 
-  			var offset;
-  			if ($('.navbar').hasClass('navbar-fixed-top') || $('.navbar-header > button').hasClass('collapsed')) {
-  				offset = 0;
-  			} else {
-  				offset = -240;
-  			}
+	  			var offset;
+	  			if ($('.navbar').hasClass('navbar-fixed-top') || $('.navbar-header > button').hasClass('collapsed')) {
+	  				offset = 0;
+	  			} else {
+	  				offset = -240;
+	  			}
 
-  			if (target == '#about')
-  				offset += -15;
-  			else
-  				offset += 0;
+	  			if (target == '#about')
+	  				offset += -15;
+	  			else
+	  				offset += 0;
 
-    		$('html, body').animate({
-       			scrollTop: $(target).offset().top + offset
-    		}, 500);
-		});
+	    		$('html, body').animate({
+	       			scrollTop: $(target).offset().top + offset
+	    		}, 500);
+
+	    		if (location.toString().indexOf('#') >= 0)
+	    			history.replaceState(null, null, location.toString().substring(0, location.toString().indexOf('#')));
+			});
+  		}
   	}
   	addLink('#nav-link-about', '#about');
   	addLink('#nav-link-sched', '#schedule');
@@ -133,4 +140,5 @@ $(document).ready(function(){
     		}, 200);
   		}
   	});
+  	
 });

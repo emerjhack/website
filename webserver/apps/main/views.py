@@ -303,5 +303,6 @@ def my_account(request):
         'errors': errors,
         'profile': profile,
         'schools': settings.SCHOOLS,
-        'years': settings.YEARS
+        'years': settings.YEARS,
+        'is_logged_in': request.user.is_authenticated()
     })
