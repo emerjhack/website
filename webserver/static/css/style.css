@@ -172,19 +172,19 @@ h1 {
 }
 
 
-#section-about {
+#about {
 	padding-top: 20px;
 	position: relative;
 	overflow-x: hidden;
 }
-#section-about #wire-1 {
+#about #wire-1 {
 	position: absolute;
 	left: 60%;
 	top: -5%;
 	height: 100%;
 	opacity: 0.4;
 }
-#section-about h4 {
+#about h4 {
 	padding-top: 20px;
 }
 #nav-wp-element {
@@ -219,25 +219,25 @@ h1 {
 #section-hardware .p-img {
 	margin: 10px;
 }
-#section-schedule {
+#schedule {
 
 }
-#section-schedule table {
+#schedule table {
 	width: initial;
 	margin: 0 auto;
 	margin-bottom: 40px;
 }
-#section-schedule h4 {
+#schedule h4 {
 	text-align: center;
 }
-#section-schedule-loan p {
+#schedule-loan p {
 	text-align: center;
 }
-#section-schedule-loan h4 {
+#schedule-loan h4 {
 	text-align: center;
 	padding-bottom: 10px;
 }
-#section-schedule-loan .row {
+#schedule-loan .row {
 	margin-bottom: 20px;
 }
 
@@ -250,10 +250,10 @@ h1 {
 	font-weight: 700;
 }
 
-#section-aboutus {
+#aboutus {
 
 }
-#section-aboutus h1 {
+#aboutus h1 {
 	color: black;
 	background-color: white;
 	font-size: 30px;
@@ -263,14 +263,14 @@ h1 {
 #section-sponsors {
 	height: 200px;
 }
-#section-contact {
+#contact {
 	height: 600px;
 }
-#section-contact h4 {
+#contact h4 {
 	text-align: center;
 	margin-top: 40px;
 }
-#section-contact h3, #section-contact h4 {
+#contact h3, #contact h4 {
 	position: relative;
 	z-index: 10;
 }

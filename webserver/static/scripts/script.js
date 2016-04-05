@@ -7,7 +7,7 @@ $(document).ready(function(){
         	$('#section-title').css('height', $(window).height());
         }
 
-        var overflow = $('#footer-bg').height() - $('#section-footer').offset().top + $('#section-contact').offset().top;
+        var overflow = $('#footer-bg').height() - $('#section-footer').offset().top + $('#contact').offset().top;
         if (overflow > 0) {
         	$('#footer-bg').css('bottom', (-overflow) + 'px');
         	$('#section-footer > div').css('bottom', (-overflow) + 'px');
@@ -77,7 +77,8 @@ $(document).ready(function(){
 	    			var $temp = $('#nav-title-text').detach();
 	    			$temp.appendTo('#nav-title-link');
 	    		}
-	  		}
+	  		},
+	  		offset: '120px'
 	  	};
 	}
 
@@ -92,6 +93,8 @@ $(document).ready(function(){
 
   	$('#nav-title-wp-sp').waypoint(wpobj('Hardware', 'Sponsors'));
 
+  	$('#nav-title-wp-contact').waypoint(wpobj('Sponsors', 'Contact'));
+
   	var addLink = function(button, target) {
   		$(button).click(function(e) {
   			e.preventDefault();
@@ -103,16 +106,19 @@ $(document).ready(function(){
   				offset = -240;
   			}
 
-  			if (target == '#section-about')
+  			if (target == '#about')
   				offset += -15;
+  			else
+  				offset += 0;
+
     		$('html, body').animate({
        			scrollTop: $(target).offset().top + offset
     		}, 500);
 		});
   	}
-  	addLink('#nav-link-about', '#section-about');
-  	addLink('#nav-link-sched', '#section-schedule');
-  	addLink('#nav-link-contact', '#section-contact');
+  	addLink('#nav-link-about', '#about');
+  	addLink('#nav-link-sched', '#schedule');
+  	addLink('#nav-link-contact', '#contact');
 
   	$('ul.navbar-nav > li').click(function() {
   		var b = $('.navbar-header > button');
