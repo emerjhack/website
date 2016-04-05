@@ -16,6 +16,7 @@ This is the website for EmerjHack.
 * DJANGO_EMAIL_HOST_USER=???
 * DJANGO_EMAIL_HOST_PASSWORD=???
 * DJANGO_BASE_URL=http://127.0.0.1:8000/
+* DJANGO_CAPTCHA_SECRET_KEY=???
 * DJANGO_PRODUCTION=FALSE
 
 #### Production
@@ -24,6 +25,7 @@ This is the website for EmerjHack.
 * DJANGO_EMAIL_HOST_USER=???
 * DJANGO_EMAIL_HOST_PASSWORD=???
 * DJANGO_BASE_URL=https://what-is-qa.emerjhack.com/
+* DJANGO_CAPTCHA_SECRET_KEY=???
 * DJANGO_PRODUCTION=TRUE
 * DJANGO_DB_NAME=???
 * DJANGO_DB_USER=???

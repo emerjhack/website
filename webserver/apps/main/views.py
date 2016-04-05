@@ -67,7 +67,7 @@ def register(request):
         captcha = request.POST.get('g-recaptcha-response')
         if captcha:
             payload = {
-                'secret': '6LedFBwTAAAAAPhlhjjkaohcwGGihIN300Y1Fj91',
+                'secret': settings.CAPTCHA_SECRET_KEY,
                 'response': captcha
             }
             ip = get_ip(request)
