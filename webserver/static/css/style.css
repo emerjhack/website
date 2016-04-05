@@ -90,6 +90,9 @@ h1 {
 	width: 1px;
 	display: none;
 }
+nav {
+	transform: translateZ(0px);
+}
 #section-nav {
 	margin-top: -50px;
 	margin-bottom: 0;
