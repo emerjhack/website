@@ -12,6 +12,7 @@ from ipware.ip import get_ip
 
 import json
 import requests
+import os
 
 
 def get_or_400(data, key):
@@ -47,8 +48,8 @@ def user_profile_complete(user, account):
         return False
     if not account.want_to_do:
         return False
-    # if not account.resume:
-    #     return False
+    if not account.resume:
+        return False
 
     return True
 
@@ -188,6 +189,17 @@ def my_account(request):
     user = request.user
     # Switched to get_or_create to fix issues regarding manually created accounts.
     account, created = Account.objects.get_or_create(user=user)
+
+    if account.resume:
+        current_resume = settings.MEDIA_ROOT + str(account.resume)
+    else:
+        current_resume = None
+
+    if account.supporting_files:
+        current_supporting_files = settings.MEDIA_ROOT + str(account.supporting_files)
+    else:
+        current_supporting_files = None
+
     profile = {
         'status': account.application_status,
         'first_name': user.first_name,
@@ -210,6 +222,13 @@ def my_account(request):
         profile['team_members'] = old_team_members
 
     if request.method == 'POST':
+        resume = request.FILES.get('resume')
+        supporting_files = request.FILES.get('supporting_files')
+        if resume:
+            account.resume = resume
+        if supporting_files:
+            account.supporting_files = supporting_files
+
         errors = []
 
         first_name = get_or_400(request.POST, 'first_name')
@@ -262,6 +281,9 @@ def my_account(request):
 
             account.supporting_text = get_or_400(request.POST, 'supporting_text')
 
+            delete_resume = request.POST.get('delete_resume')
+            delete_supporting_files = request.POST.get('delete_supporting_files')
+
             if team_code != old_team_code:
                 if old_team:
                     # Leave old team
@@ -279,6 +301,13 @@ def my_account(request):
                     new_team.members = json.dumps(new_team_members)
                     new_team.save()
                     account.team = new_team
+
+            if delete_resume is not None:
+                account.resume = None
+
+            if delete_supporting_files is not None:
+                account.supporting_files = None
+
             if user_profile_complete(user, account):
                 if 'save_apply' in request.POST:
                     account.application_status = 'Applied'
@@ -286,8 +315,17 @@ def my_account(request):
                     account.application_status = 'Profile complete but not applied'
             else:
                 account.application_status = 'Profile incomplete'
+
             user.save()
             account.save()
+
+            # Delete files on disk after saving to prevent deleting files if save wasn't successful.
+            if delete_resume is not None:
+                os.remove(current_resume)
+
+            if delete_supporting_files is not None:
+                os.remove(current_supporting_files)
+
             if not user_profile_complete(user, account) and 'save_apply' in request.POST:
                 return HttpResponseRedirect('/account/?errors=' + encode_list(['Could not apply because your profile is incomplete ... but we saved what you changed', ]))
             return HttpResponseRedirect('/account/?status=success')
@@ -299,6 +337,8 @@ def my_account(request):
     elif errors is not None:
         errors = decode_list(errors)
     return render(request, 'account.html', {
+        'current_resume': current_resume,
+        'current_supporting_files': current_supporting_files,
         'success': success,
         'errors': errors,
         'profile': profile,

@@ -1,3 +1,4 @@
+www/
 *.pyc
 *~
 db.sqlite3
