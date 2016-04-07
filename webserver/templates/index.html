@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static "css/home.css" %}">
+{% endblock css %}
 {% block nav %}
 <div class="container-fluid" id="section-title">
   <div class="row">
@@ -16,7 +19,15 @@
     <h3>2015</h3>
   </div>
 
-  <div id="title-plant"></div>
+  <div id="title-plant">
+    <div class="tp-a-container">
+      <img id="tp-a-stem" class="tp-a-parts" src="{% static "images/plant-a/stem.svg" %}" />
+      <img id="tp-a-rl" class="tp-a-parts" src="{% static "images/plant-a/right-leaf.svg" %}" />
+      <img id="tp-a-ll" class="tp-a-parts" src="{% static "images/plant-a/left-leaf.svg" %}" />
+      <img id="tp-a-lb" class="tp-a-parts" src="{% static "images/plant-a/left-branch.svg" %}" />
+      <img id="tp-a-rb" class="tp-a-parts" src="{% static "images/plant-a/right-branch.svg" %}" />
+    </div>
+  </div>
 </div>
 <div id="sticky-nav-placeholder"></div>
 <nav class="navbar navbar-default" id="section-nav">

@@ -1,0 +1,142 @@
+#section-title {
+	height: 100vh;
+	min-height: 400px;
+	position: relative;
+}
+#section-title .title-img {
+	padding-top: 100px;
+	padding-bottom: 60px;
+}
+#section-title .title-img img {
+	max-width: 600px;
+	width: 80%;
+}
+#section-title #title-plant {
+	position: absolute;
+	height: 230px;
+	width: 110px;
+	bottom: 48px;
+	left: 60%;
+	overflow: hidden;
+}
+.tp-a-container {
+	position: relative;
+}
+.tp-a-parts {
+	position: absolute;
+	top: 0;
+	left: 0;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+#tp-a-stem {
+	animation-name: tp-a-stem-ani-x;
+	animation-duration: 1s;
+}
+
+#tp-a-rl {
+	animation-name: tp-a-rl-ani-x;
+	animation-duration: 0.3s;
+	animation-delay: 0.7s;
+}
+
+#tp-a-ll {
+	animation-name: tp-a-ll-ani-x;
+	animation-duration: 0.3s;
+	animation-delay: 0.7s;
+}
+
+#tp-a-lb {
+	animation-name: tp-a-lb-ani-x;
+	animation-duration: 0.2s;
+	animation-delay: 0.65s;
+}
+
+#tp-a-rb {
+	animation-name: tp-a-rb-ani-x;
+	animation-duration: 0.2s;
+	animation-delay: 0.65s;
+}
+#section-title div.row, #nav-container {
+	opacity: 0;
+	animation-fill-mode: forwards;
+	animation-duration: 1s;
+	animation-delay: 0.8s;
+}
+
+@keyframes tp-a-stem-ani {
+	0% {
+		transform: translateY(200px);
+		opacity: 1;
+	}
+	100% {
+		transform: scaleY(1) translateY(0px);
+		opacity: 1;
+	}
+}
+@keyframes tp-a-rl-ani {
+	0% {
+		transform: rotate(-50deg) scale(0.5);
+		top: -20px;
+		left: 25px;
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(0deg) scale(1);
+		top: 0px;
+		left: 0px;
+		opacity: 1;
+	}
+}
+@keyframes tp-a-ll-ani {
+	0% {
+		transform: rotate(20deg) scale(0.5);
+		top: -10px;
+		left: -15px;
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(0deg) scale(1);
+		top: 0px;
+		left: 0px;
+		opacity: 1;
+	}
+}
+@keyframes tp-a-lb-ani {
+	0% {
+		transform: rotate(20deg) scale(0.3);
+		top: 18px;
+		left: -10px;
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(0deg) scale(1);
+		top: 0px;
+		left: 0px;
+		opacity: 1;
+	}
+}
+@keyframes tp-a-rb-ani {
+	0% {
+		transform: rotate(-20deg) scale(0.3);
+		top: 70px;
+		left: -30px;
+		opacity: 1;
+	}
+	100% {
+		transform: rotate(0deg) scale(1);
+		top: 0px;
+		left: 0px;
+		opacity: 1;
+	}
+}
+@keyframes fade-in {
+	0% {
+		opacity: 0.1;
+	}
+	100% {
+		opacity: 1;
+	}
+}

@@ -141,4 +141,27 @@ $(document).ready(function(){
   		}
   	});
   	
+  	var animation = false;
+  	var cookieStr = "eh_a_wait_M6jpdLHHM8d2dgg";
+
+  	if (document.cookie.indexOf(cookieStr) == -1) {
+  		animation = true;
+
+  		var exp = new Date();
+		exp.setTime(exp.getTime() + 5*60*1000);
+		document.cookie = cookieStr+'=swag'+';expires='+exp.toGMTString()+';path=/';
+		console.log(cookieStr+'=swag'+';expires='+exp.toGMTString()+';path=/');
+  	}
+
+  	if (animation) {
+  		$('.tp-a-parts').each(function() {
+  			$(this).css('animation-name', $(this).attr('id')+'-ani');
+  		});
+  		$('#section-title div.row, #nav-container').each(function() {
+  			$(this).css('animation-name', 'fade-in');
+  		});
+  	} else {
+  		$('.tp-a-parts').css('opacity', '1');
+  		$('#section-title div.row, #nav-container').css('opacity', '1');
+  	}
 });

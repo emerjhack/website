@@ -61,27 +61,7 @@ h1 {
 	max-width: 100%;
 }
 
-#section-title {
-	height: 100vh;
-	min-height: 400px;
-	position: relative;
-}
-#section-title .title-img {
-	padding-top: 100px;
-	padding-bottom: 60px;
-}
-#section-title .title-img img {
-	max-width: 600px;
-	width: 80%;
-}
-#section-title #title-plant {
-	position: absolute;
-	height: 230px;
-	width: 110px;
-	bottom: 48px;
-	left: 60%;
-	background-image: url(/static/images/plant-1.svg);
-}
+
 #section-title h3 {
 
 }
