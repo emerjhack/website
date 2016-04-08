@@ -12,6 +12,7 @@ This is the website for EmerjHack.
 
 #### Development
 
+* DJANGO_STATIC_SERVE=/home/gary/mounted/emerjhack/website/webserver/static
 * DJANGO_SECRET_KEY=???
 * DJANGO_EMAIL_HOST_USER=???
 * DJANGO_EMAIL_HOST_PASSWORD=???
@@ -21,6 +22,7 @@ This is the website for EmerjHack.
 
 #### Production
 
+* DJANGO_STATIC_SERVE=/var/www/what-is-qa.emerjhack.com/static
 * DJANGO_SECRET_KEY=???
 * DJANGO_EMAIL_HOST_USER=???
 * DJANGO_EMAIL_HOST_PASSWORD=???
@@ -32,4 +34,3 @@ This is the website for EmerjHack.
 * DJANGO_DB_PASS=???
 * DJANGO_DB_HOST=???
 * DJANGO_DB_PORT=???
-

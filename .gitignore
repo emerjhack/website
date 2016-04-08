@@ -1,5 +1,6 @@
-www/
+tmp/
 webserver/media_root/
+webserver/static_root/
 *.pyc
 *~
 db.sqlite3
