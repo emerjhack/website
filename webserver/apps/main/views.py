@@ -13,6 +13,35 @@ from ipware.ip import get_ip
 import json
 import requests
 import os
+import errno
+import shutil
+
+
+# http://stackoverflow.com/questions/600268/mkdir-p-functionality-in-python
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:  # Python >2.5
+        if exc.errno == errno.EEXIST and os.path.isdir(path):
+            pass
+        else:
+            raise
+
+
+def tmp_serve_file(location, username, classifier):
+    if not location:
+        return None
+
+    path = os.path.join(settings.STATIC_SERVE, 'tmp/')
+    mkdir_p(path)
+
+    filename, file_extension = os.path.splitext(location)
+    tmp_name = sha256((username + classifier).encode('utf-8')).hexdigest()[0:64] + file_extension
+    tmp_location = os.path.join(path, tmp_name)
+
+    shutil.copyfile(location, tmp_location)
+
+    return '/static/tmp/' + os.path.basename(tmp_location)
 
 
 def get_or_400(data, key):
@@ -191,12 +220,12 @@ def my_account(request):
     account, created = Account.objects.get_or_create(user=user)
 
     if account.resume:
-        current_resume = settings.MEDIA_ROOT + str(account.resume)
+        current_resume = os.path.join(settings.MEDIA_ROOT, str(account.resume))
     else:
         current_resume = None
 
     if account.supporting_files:
-        current_supporting_files = settings.MEDIA_ROOT + str(account.supporting_files)
+        current_supporting_files = os.path.join(settings.MEDIA_ROOT, str(account.supporting_files))
     else:
         current_supporting_files = None
 
@@ -336,9 +365,10 @@ def my_account(request):
         success = 'Account successfully updated.'
     elif errors is not None:
         errors = decode_list(errors)
+
     return render(request, 'account.html', {
-        'current_resume': current_resume,
-        'current_supporting_files': current_supporting_files,
+        'current_resume': tmp_serve_file(current_resume, user.username, 'current_resume'),
+        'current_supporting_files': tmp_serve_file(current_supporting_files, user.username, 'current_supporting_files'),
         'success': success,
         'errors': errors,
         'profile': profile,
