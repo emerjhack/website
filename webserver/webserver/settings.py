@@ -136,13 +136,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "www/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static/"),
+    os.path.join(BASE_DIR, 'static/'),
 ]
 
-MEDIA_ROOT = '/var/www/emerjhack.com/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root/')
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/login/'
