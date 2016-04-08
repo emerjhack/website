@@ -5,9 +5,14 @@
 
 {% block content %}
 <div class="container" id="section-login">
-  <h1>Register</h1>
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-4">
+      <h1>Register</h1>
+    </div>
+  </div>
+  <div class="row">
   {% if errors %}
-  <div class="alert alert-danger col-sm-7 col-sm-offset-3">
+  <div class="alert alert-danger col-sm-7 col-sm-offset-2">
     <ul>
       {% for error in errors %}
       <li>{{ error }}</li>
@@ -15,47 +20,48 @@
     </ul>
   </div>
   {% endif %}
+  </div>
   <form class="form-horizontal" role="form" action="" method="post">
     {% csrf_token %}
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="first_name">First name</label>
+      <label class="control-label col-sm-2 col-sm-offset-1" for="first_name">First name</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="first_name" name="first_name" placeholder="John" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="last_name">Last name</label>
+      <label class="control-label col-sm-2 col-sm-offset-1" for="last_name">Last name</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Smith" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="email">Email</label>
+      <label class="control-label col-sm-2 col-sm-offset-1" for="email">Email</label>
       <div class="col-sm-6">
         <input type="email" class="form-control" id="email" name="email" placeholder="john.smith@uwaterloo.ca" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="pwd">Password</label>
+      <label class="control-label col-sm-2 col-sm-offset-1" for="pwd">Password</label>
       <div class="col-sm-6">
         <input type="password" class="form-control" id="pwd" name="pwd" placeholder="********" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="pwd_conf">Confirm password</label>
+      <label class="control-label col-sm-2 col-sm-offset-1" for="pwd_conf">Confirm password</label>
       <div class="col-sm-6">
         <input type="password" class="form-control" id="pwd_conf" placeholder="********" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2 col-sm-offset-2" for="g-recaptcha"></label>
+      <label class="control-label col-sm-2 col-sm-offset-1" for="g-recaptcha"></label>
       <div class="col-sm-6">
         <div class="g-recaptcha" id="g-recaptcha" data-sitekey="6Lf3kxwTAAAAAOc7oKhpEMKb2HdBdZwD9qcwRzrt"></div>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-6">
+      <div class="col-sm-offset-3 col-sm-6">
         <button type="submit" class="btn btn-default btn-block">Submit</button>
       </div>
     </div>
