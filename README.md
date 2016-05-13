@@ -1,5 +1,5 @@
 # EmerjHack Website
-This is the website for EmerjHack.
+This is the website for EmerjHack. PREPROD SITE: https://qa.emerjhack.com/
 
 ## Dependencies
 
@@ -20,13 +20,13 @@ This is the website for EmerjHack.
 * DJANGO_CAPTCHA_SECRET_KEY=???
 * DJANGO_PRODUCTION=FALSE
 
-#### Production
+#### Pre-Production
 
-* DJANGO_STATIC_SERVE=/var/www/what-is-qa.emerjhack.com/static
+* DJANGO_STATIC_SERVE=/var/www/qa.emerjhack.com/static
 * DJANGO_SECRET_KEY=???
 * DJANGO_EMAIL_HOST_USER=???
 * DJANGO_EMAIL_HOST_PASSWORD=???
-* DJANGO_BASE_URL=https://what-is-qa.emerjhack.com/
+* DJANGO_BASE_URL=https://qa.emerjhack.com/
 * DJANGO_CAPTCHA_SECRET_KEY=???
 * DJANGO_PRODUCTION=TRUE
 * DJANGO_DB_NAME=???
