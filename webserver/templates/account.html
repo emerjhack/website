@@ -5,14 +5,14 @@
 
 <div class="container" id="section-login">
   <div class="row">
-    <div class="col-sm-2 col-sm-offset-4">
+    <div class="text-center">
       <h1 style="white-space: nowrap;">My Account</h1>
     </div>
   </div>
   
   <div class="row">
   {% if errors %}
-  <div class="alert alert-danger col-sm-7 col-sm-offset-2">
+  <div class="alert alert-danger col-sm-6 col-sm-offset-3">
     <ul>
       {% for error in errors %}
       <li>{{ error }}</li>
@@ -21,11 +21,11 @@
   </div>
   {% endif %}
   {% if success %}
-  <div class="alert alert-success col-sm-7 col-sm-offset-2">{{ success }}</div>
+  <div class="alert alert-success col-sm-6 col-sm-offset-3">{{ success }}</div>
   {% endif %}
   </div>
   <div class="row">
-  <div class="alert alert-info col-sm-7 col-sm-offset-2">
+  <div class="alert alert-info col-sm-6 col-sm-offset-3">
     ** marks mandatory fields<br>
     *&nbsp;&nbsp; marks mandatory fields for application<br><br>
     Account status: <strong>{{ profile.status }}</strong>
